@@ -1,0 +1,637 @@
+@import "tailwindcss";
+
+html {
+  font-family: Delight, Arial, sans-serif;
+}
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Pavelt";
+  src: url("/Font/Pavelt.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.primary-font {
+  font-family: "Pavelt", sans-serif;
+}
+
+.secondary-font {
+  font-family: var(--font-montserrat);
+}
+
+:root {
+  background-color: #05040b;
+}
+
+@layer utilities {
+  .bg-gradient-gradient {
+    background-image: linear-gradient(125deg, #eed85f, #8f6c21);
+  }
+
+  .features-integrations-icon-wrap {
+    background-color: #05040b;
+    border: 1px solid #ffffff18;
+    border-radius: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: clamp(56px, 6vw, 90px);
+    height: clamp(56px, 6vw, 90px);
+    display: flex;
+    position: absolute;
+    box-shadow: inset 0 0 14px #ffffff59, 0 8px 24px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+    backdrop-filter: blur(8px);
+  }
+  .features-integrations-icon-wrap:hover {
+    transform: scale(1.12);
+    border-color: rgba(238, 216, 95, 0.45);
+    box-shadow: inset 0 0 18px rgba(255, 255, 255, 0.65), 0 0 28px rgba(238, 216, 95, 0.3);
+    z-index: 20;
+  }
+  .features-integrations-icon-wrap img {
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+  }
+  .features-integrations-icon-wrap:hover img {
+    transform: scale(1.08);
+    filter: brightness(1.15);
+  }
+  .features-integrations-icon-wrap-mobile {
+    background-color: #05040b;
+    border: 1px solid #ffffff18;
+    border-radius: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    position: relative;
+    box-shadow: inset 0 0 14px #ffffff59;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+  }
+  .features-integrations-icon-wrap-mobile:hover {
+    transform: scale(1.08);
+    border-color: rgba(238, 216, 95, 0.4);
+    box-shadow: inset 0 0 14px #ffffff75, 0 0 16px rgba(238, 216, 95, 0.25);
+  }
+
+  /* Orbit positions — tuned for a large (≥1600px) canvas by default.
+     Scaled down at each breakpoint below so the ring doesn't overflow
+     or overlap on smaller desktop / laptop screens. */
+  .features-integrations-icon-wrap.one {
+    inset: 39px auto auto 309px;
+  }
+  .features-integrations-icon-wrap.two {
+    inset: 64px auto auto;
+  }
+  .features-integrations-icon-wrap.three {
+    inset: 19px 343px auto auto;
+  }
+  .features-integrations-icon-wrap.four {
+    inset: auto auto 208px 374px;
+  }
+  .features-integrations-icon-wrap.five {
+    inset: auto 352px 178px auto;
+  }
+  .features-integrations-icon-wrap.six {
+    inset: auto 125px 259px auto;
+  }
+  .features-integrations-icon-wrap.seven {
+    inset: auto auto 259px 125px;
+  }
+  .features-integrations-icon-wrap.eight {
+    inset: auto 135px 34px auto;
+  }
+
+  .feature-card-icon-wrapper {
+    background-color: #05040b;
+    border: 1px solid #fff3;
+    border-radius: 100%;
+    flex-flow: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 80px;
+    height: 80px;
+    margin-bottom: 24px;
+    display: flex;
+    box-shadow: inset 0 2px 12px #ffffff42;
+  }
+  .section-circle {
+    filter: blur(120px);
+    background-color: #1a5c3a;
+    border-radius: 100%;
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    inset: 180px 0 auto;
+  }
+  .pricing-section-glow {
+    filter: blur(150px);
+    background-color: #168b5b;
+    max-width: 760px;
+    height: 620px;
+    opacity: 0.78;
+    inset: 100px 0 auto;
+  }
+  .integrations-pair {
+    grid-column-gap: 80px;
+    grid-row-gap: 80px;
+    flex-flow: column;
+    justify-content: space-around;
+    align-items: stretch;
+    display: flex;
+  }
+  .integration-logo {
+    z-index: 2;
+    border-radius: 100px;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    position: relative;
+  }
+  .small-logo-holder {
+    background-color: #ffffff14;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    max-width: 70px;
+    height: 70px;
+    padding: 15px;
+    display: flex;
+    position: absolute;
+  }
+  .integration-right-align {
+    justify-content: flex-end;
+    align-items: center;
+    display: flex;
+  }
+  .logo-holder {
+    background-color: #ffffff14;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 100px;
+    max-width: 100px;
+    height: 100px;
+    padding: 20px;
+    display: flex;
+    position: relative;
+  }
+  .center-logo-holder {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+  .integration-center-logo {
+    background-color: #ffffff14;
+    border-radius: 15px;
+    justify-content: center;
+    align-items: center;
+    width: 150px;
+    max-width: 150px;
+    height: 150px;
+    padding: 30px;
+    display: flex;
+  }
+  span.swiper-pagination-bullet {
+    display: block;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    margin: 14px;
+    border-radius: 50%;
+  }
+  span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+    outline: 1px solid #1fa864;
+    outline-offset: 5px;
+    background: #1fa864;
+  }
+  .swiper-pagination {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  .feature-tool-icon-00 {
+    z-index: 4;
+    position: absolute;
+    inset: 50% 0% 0% 50%;
+    transform: translate(-50%, -30%);
+  }
+  .feature-tool-icon-01 {
+    z-index: 3;
+    position: absolute;
+    inset: 50% 0% 0% 50%;
+    transform: translate(-100%, -127%);
+  }
+  .feature-tool-icon-02 {
+    z-index: 5;
+    position: absolute;
+    inset: 50% 0% 50% 50%;
+    transform: translate(-145%, -10%);
+  }
+  .feature-tool-icon-03 {
+    position: absolute;
+    inset: 50% 0% 0% 50%;
+    transform: rotate(-51deg) translate(114%, -6%);
+  }
+  .feature-tool-icon-04 {
+    position: absolute;
+    inset: 50% 0% 0% 50%;
+    transform: translate(84%, 40%);
+  }
+}
+
+/* ──────────────────────────────────────────────────────────
+   RESPONSIVE OVERRIDES
+   The rules above were tuned for a large desktop canvas.
+   These breakpoints scale the orbit icons, glow circles, and
+   logo holders down together so sections don't look oversized
+   on smaller desktop / laptop screens.
+   ────────────────────────────────────────────────────────── */
+
+/* Large laptop / small desktop */
+@media (max-width: 1440px) {
+  .features-integrations-icon-wrap.one {
+    inset: 28px auto auto 230px;
+  }
+  .features-integrations-icon-wrap.three {
+    inset: 14px 256px auto auto;
+  }
+  .features-integrations-icon-wrap.four {
+    inset: auto auto 156px 280px;
+  }
+  .features-integrations-icon-wrap.five {
+    inset: auto 264px 133px auto;
+  }
+  .features-integrations-icon-wrap.six {
+    inset: auto 94px 194px auto;
+  }
+  .features-integrations-icon-wrap.seven {
+    inset: auto auto 194px 94px;
+  }
+  .features-integrations-icon-wrap.eight {
+    inset: auto 101px 25px auto;
+  }
+
+  .section-circle {
+    max-width: 400px;
+    height: 400px;
+    inset: 140px 0 auto;
+  }
+  .pricing-section-glow {
+    max-width: 600px;
+    height: 480px;
+    inset: 80px 0 auto;
+  }
+  .integration-center-logo {
+    width: 120px;
+    max-width: 120px;
+    height: 120px;
+    padding: 24px;
+  }
+  .logo-holder {
+    width: 84px;
+    max-width: 84px;
+    height: 84px;
+    padding: 16px;
+  }
+  .small-logo-holder {
+    width: 58px;
+    max-width: 58px;
+    height: 58px;
+    padding: 12px;
+  }
+  .integrations-pair {
+    grid-column-gap: 56px;
+    grid-row-gap: 56px;
+  }
+}
+
+/* Standard laptop screens */
+@media (max-width: 1200px) {
+  .features-integrations-icon-wrap.one {
+    inset: 20px auto auto 180px;
+  }
+  .features-integrations-icon-wrap.three {
+    inset: 10px 200px auto auto;
+  }
+  .features-integrations-icon-wrap.four {
+    inset: auto auto 120px 220px;
+  }
+  .features-integrations-icon-wrap.five {
+    inset: auto 208px 104px auto;
+  }
+  .features-integrations-icon-wrap.six {
+    inset: auto 72px 152px auto;
+  }
+  .features-integrations-icon-wrap.seven {
+    inset: auto auto 152px 72px;
+  }
+  .features-integrations-icon-wrap.eight {
+    inset: auto 78px 18px auto;
+  }
+
+  .section-circle {
+    max-width: 320px;
+    height: 320px;
+    inset: 100px 0 auto;
+  }
+  .pricing-section-glow {
+    max-width: 480px;
+    height: 380px;
+    inset: 60px 0 auto;
+  }
+  .feature-card-icon-wrapper {
+    max-width: 64px;
+    height: 64px;
+    margin-bottom: 18px;
+  }
+}
+
+/* Small desktop / tablet-landscape — collapse the absolute orbit
+   layout entirely; pair with `.features-integrations-icon-wrap-mobile`
+   in markup below this width if your layout swaps to a grid/flow. */
+@media (max-width: 1024px) {
+  .section-circle {
+    max-width: 260px;
+    height: 260px;
+    filter: blur(90px);
+    inset: 80px 0 auto;
+  }
+  .pricing-section-glow {
+    max-width: 380px;
+    height: 300px;
+    filter: blur(110px);
+    inset: 40px 0 auto;
+  }
+  .integration-center-logo {
+    width: 96px;
+    max-width: 96px;
+    height: 96px;
+    padding: 18px;
+  }
+  .logo-holder {
+    width: 70px;
+    max-width: 70px;
+    height: 70px;
+    padding: 14px;
+  }
+  .integrations-pair {
+    grid-column-gap: 32px;
+    grid-row-gap: 32px;
+  }
+}
+
+@keyframes countriesScroll {
+  0% {
+    transform: translateX(-25%);
+  }
+
+  50% {
+    transform: translateX(-50%);
+  }
+
+  100% {
+    transform: translateX(-25%);
+  }
+}
+
+:root {
+  --animate-ripple: ripple var(--duration, 2s) ease calc(var(--i, 0) * 0.2s)
+    infinite;
+}
+
+@keyframes ripple {
+  0%,
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+}
+
+.animate-ripple {
+  animation: var(--animate-ripple);
+}
+
+@keyframes floatBob {
+  0%, 100% {
+    transform: translateY(-12px);
+  }
+  50% {
+    transform: translateY(12px);
+  }
+}
+
+.animate-float-bob {
+  animation: floatBob 5s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes floatSubtleA {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes floatSubtleB {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(6px);
+  }
+}
+
+.animate-float-subtle-a {
+  animation: floatSubtleA 4.8s ease-in-out infinite;
+  will-change: transform;
+}
+
+.animate-float-subtle-b {
+  animation: floatSubtleB 5.4s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes glowBlink {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.98);
+    filter: blur(16px);
+  }
+  50% {
+    opacity: 0.95;
+    transform: scale(1.05);
+    filter: blur(28px);
+  }
+}
+
+.animate-glow-blink {
+  animation: glowBlink 3s ease-in-out infinite;
+  will-change: transform, opacity, filter;
+}
+
+.pricing-swiper {
+  position: relative;
+  padding-bottom: 45px !important;
+}
+
+.pricing-swiper .swiper-pagination {
+  bottom: 5px !important;
+}
+
+.pricing-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+}
+
+.pricing-swiper .swiper-pagination-bullet {
+  width: 8px;
+  height: 8px;
+  background-color: #ffffff;
+  opacity: 0.5;
+  margin: 0 6px !important;
+  transition: all 0.3s ease;
+}
+
+.pricing-swiper .swiper-pagination-bullet-active {
+  width: 12px;
+  height: 12px;
+  opacity: 1;
+  background-color: #168b5b;
+  border: none;
+  box-shadow: none;
+}
+
+/* Keep the long homepage sections proportionate on laptop-sized screens. */
+@media (max-width: 1200px) {
+  .home-page section {
+    padding-top: clamp(2.75rem, 5vw, 5rem) !important;
+    padding-bottom: clamp(2.75rem, 5vw, 5rem) !important;
+  }
+
+  .home-page section [class*="min-h-"] {
+    min-height: auto !important;
+  }
+
+  .home-page section h1 {
+    font-size: clamp(2.25rem, 5vw, 4.75rem);
+  }
+
+  .home-page section h2 {
+    font-size: clamp(1.75rem, 4vw, 3.5rem);
+  }
+}
+
+@media (max-width: 1024px) {
+  .home-page section {
+    padding-top: 3rem !important;
+    padding-bottom: 3rem !important;
+  }
+
+  .home-page section p {
+    font-size: clamp(0.875rem, 1.8vw, 1rem);
+  }
+
+  .home-page section .grid {
+    gap: clamp(1rem, 2.5vw, 2rem);
+  }
+
+  .home-page section .rounded-3xl {
+    border-radius: 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .home-page section {
+    padding-top: 2.5rem !important;
+    padding-bottom: 2.5rem !important;
+  }
+}
+
+/* Non-active slides: dimmed */
+.pricing-swiper .swiper-slide:not(.swiper-slide-active) .pricing-card {
+  opacity: 0.65;
+  transform: scale(0.96);
+}
+
+/* Active (center) slide: full highlight + green-tinted shadow */
+.pricing-swiper .swiper-slide-active .pricing-card {
+  opacity: 1 !important;
+  transform: scale(1) translateY(-6px) !important;
+  border-color: rgba(31, 168, 100, 0.35) !important;
+  box-shadow:
+    0 15px 40px rgba(0, 0, 0, 0.8),
+    0 0 40px rgba(31, 168, 100, 0.12) !important;
+}
+
+/* Show all glow / overlay layers on active card */
+.pricing-swiper .swiper-slide-active .pricing-card-bg {
+  opacity: 1 !important;
+}
+
+.pricing-swiper .swiper-slide-active .pricing-card-corner-glow {
+  opacity: 1 !important;
+}
+
+.pricing-swiper .swiper-slide-active .pricing-card-spotlight {
+  opacity: 1 !important;
+}
+
+.pricing-swiper .swiper-slide-active .pricing-card-bloom {
+  opacity: 1 !important;
+}
+
+.pricing-swiper .swiper-slide-active .pricing-card-inner-glow {
+  opacity: 1 !important;
+}
+
+/* Active card tag → white pill */
+.pricing-swiper .swiper-slide-active .pricing-card-tag {
+  background-color: #ffffff !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+  border-color: transparent !important;
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2) !important;
+}
+
+/* Active card button → white */
+.pricing-swiper .swiper-slide-active .pricing-card-btn {
+  background: #ffffff !important;
+  background-image: none !important;
+  color: #111827 !important;
+  font-weight: 600 !important;
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* ── Green Glow Rules ── */
+
+/* Center (active) card: top-right corner green bloom */
+.pricing-swiper .swiper-slide-active .pricing-card-corner-glow {
+  opacity: 1 !important;
+}
+
+/* Left neighbor card: right-side green glow bleeds toward center */
+.pricing-swiper .swiper-slide-prev .pricing-card-right-glow {
+  opacity: 1 !important;
+}
+
+/* Right neighbor card: left-side green glow bleeds toward center */
+.pricing-swiper .swiper-slide-next .pricing-card-left-glow {
+  opacity: 1 !important;
+}
