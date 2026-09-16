@@ -1,45 +1,43 @@
 import React from "react";
 
-const FeatureCard = ({ icon, title, description }) => {
-  return (
-    <div className="group relative">
-      {/* Ambient Colored Backlight Glow (Behind Card on Hover) */}
-      <div className="pointer-events-none absolute -inset-1.5 rounded-3xl bg-gradient-to-r from-[#00d2ff]/30 via-[#00ff87]/35 to-[#2563eb]/30 opacity-0 blur-2xl transition-all duration-500 ease-out group-hover:opacity-100 group-hover:scale-105" />
-
-      {/* Top Soft Radiant Bloom (Like the glowing light in the reference image) */}
-      <div className="pointer-events-none absolute -top-10 left-1/2 -translate-x-1/2 h-32 w-52 rounded-full bg-gradient-to-t from-[#00ff87]/45 via-[#00d2ff]/35 to-transparent opacity-0 blur-2xl transition-all duration-500 ease-out group-hover:opacity-100" />
-
-      {/* Main Card Body */}
-      <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-[#07060f]/95 p-8 transition-all duration-300 ease-out group-hover:-translate-y-2 group-hover:border-[#00ff87]/35 group-hover:shadow-[0_20px_50px_-15px_rgba(0,255,135,0.25)] backdrop-blur-md">
-        {/* Top-edge subtle shimmer gradient line */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-[1.5px] bg-gradient-to-r from-transparent via-[#00ff87]/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-
-        {/* Subtle ambient hover inner background lighting */}
-        <div className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition-opacity duration-500 group-hover:opacity-100 bg-gradient-to-b from-[#00ff87]/[0.05] via-transparent to-transparent" />
-
-        {/* Icon Wrapper */}
-        <div className="feature-card-icon-wrapper mb-6 transition-all duration-300 ease-out group-hover:scale-110 group-hover:border-[#00ff87]/40 group-hover:shadow-[0_0_25px_rgba(0,255,135,0.3)]">
-          <img
-            src={icon}
-            alt={title}
-            width={40}
-            height={40}
-            className="h-10 w-10 object-contain transition-transform duration-300 group-hover:scale-105"
-          />
-        </div>
-
-        {/* Title */}
-        <h4 className="mb-3 text-2xl font-medium tracking-tight text-white transition-colors duration-300">
-          {title}
-        </h4>
-
-        {/* Description */}
-        <p className="text-base leading-relaxed text-neutral-400 transition-colors duration-300 group-hover:text-neutral-300 font-normal">
-          {description}
-        </p>
+const FeatureCard = ({ icon, metric, title, description, detail, featured = false }) => (
+  <article
+    className={`group relative isolate min-h-[238px] overflow-visible px-6 pt-6 transition-all duration-300 hover:-translate-y-2 sm:min-h-[252px] sm:px-7 sm:pt-7 lg:min-h-[264px] ${
+      featured
+        ? "rounded-[1.5rem] border border-transparent bg-gradient-to-br from-[#1fa864] via-[#258d87] to-[#3959a6] px-7 pt-7 text-white shadow-[0_18px_45px_rgba(31,168,100,0.24)] sm:px-8 sm:pt-8 hover:shadow-[0_24px_60px_rgba(31,168,100,0.42),0_0_35px_rgba(57,89,166,0.28)]"
+        : "rounded-2xl border border-white/10 border-t-[#ffffff2b] bg-[#0d1114] text-white shadow-[0_14px_35px_rgba(0,0,0,0.28)] hover:border-[#1fa864]/60 hover:bg-[#111b1b] hover:shadow-[0_22px_55px_rgba(31,168,100,0.3),0_0_30px_rgba(37,141,135,0.2)]"
+    }`}
+  >
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute -inset-2 -z-10 rounded-[1.7rem] bg-gradient-to-r from-[#1fa864]/0 via-[#258d87]/0 to-[#3959a6]/0 opacity-0 blur-xl transition-opacity duration-300 group-hover:from-[#1fa864]/40 group-hover:via-[#258d87]/30 group-hover:to-[#3959a6]/40 group-hover:opacity-100"
+    />
+    <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-[#1fa864]/0 via-[#258d87]/0 to-[#3959a6]/0 opacity-0 transition-opacity duration-500 group-hover:from-[#1fa864]/10 group-hover:via-[#258d87]/[0.06] group-hover:to-[#3959a6]/10 group-hover:opacity-100" />
+    <div className="relative z-10">
+      <div className="flex items-start justify-between gap-4">
+        <h3 className="max-w-[13ch] text-3xl font-medium leading-[0.98] tracking-tight text-white sm:text-4xl">
+          {metric}
+          <span className="block">{title}</span>
+        </h3>
+      <img
+  src={icon}
+  alt=""
+  width={400}
+  height={400}
+  loading="lazy"
+  decoding="async"
+  className={`h-16 w-16 shrink-0 object-contain opacity-80 transition-all duration-300 group-hover:scale-115 group-hover:drop-shadow-[0_0_16px_rgba(31,168,100,0.7)] sm:h-20 sm:w-20 ${
+    featured ? "brightness-0 invert" : ""
+  }`}
+/> </div>
+      <p className="mt-5 text-base leading-relaxed text-white/70">{description}</p>
+      <div className={`mt-6 border-t pt-5 text-sm font-semibold text-white mb-5 ${featured ? "border-white/30" : "border-white/15 group-hover:border-[#1fa864]/45"}`}>
+        <span className="mr-3 text-xs">›</span>
+        {detail}
       </div>
     </div>
-  );
-};
+    {featured && <div className="pointer-events-none absolute -bottom-20 -right-8 h-44 w-44 rounded-full bg-white/20 blur-3xl transition-transform duration-500 group-hover:scale-125" />}
+  </article>
+);
 
 export default FeatureCard;

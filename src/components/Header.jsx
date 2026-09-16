@@ -27,7 +27,7 @@ export default function Header() {
           ========================== */}
           <div className="flex-shrink-0">
             <Link to="/" className="flex items-center" onClick={closeMenu}>
-              <img src={logo} alt="TradeLogicFX" className="h-[50px] w-auto" />
+              <img src={logo} alt="TradeLogicFX" loading="lazy" className="h-[50px] w-auto" />
             </Link>
           </div>
 

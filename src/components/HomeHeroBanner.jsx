@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import {
   motion,
   useScroll,
@@ -10,9 +10,11 @@ import EarthImage from "../assets/Experience Trading.png";
 import lines from "../assets/banner-image-bg.webp";
 import featherleft from "../assets/feather-left.webp";
 import featherright from "../assets/feather-right.webp";
+import ContactPopup from "./ContactPopup";
 
 const HomeHeroBanner = () => {
   const sectionRef = useRef(null);
+  const [showContact, setShowContact] = useState(false);
 
   /* ---------------------------------------------------
      SCROLL PARALLAX — Multi-layer depth as user scrolls
@@ -89,6 +91,7 @@ const HomeHeroBanner = () => {
               className="flex items-center justify-center lg:justify-start gap-2 mb-4 lg:mb-2.5"
             >
               <img
+                loading="lazy"
                 src={featherleft}
                 alt="no1"
                 width={20}
@@ -142,6 +145,8 @@ const HomeHeroBanner = () => {
               transition={{ duration: 0.6, delay: 0.45 }}
             >
               <motion.button
+                type="button"
+                onClick={() => setShowContact(true)}
                 whileHover={{ scale: 1.05, boxShadow: "0 10px 35px rgba(31,168,100,0.35)" }}
                 whileTap={{ scale: 0.97 }}
                 className="bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] px-6 py-3 lg:px-7 lg:py-3 2xl:px-8 2xl:py-3.5 font-medium uppercase tracking-wide text-white transition-shadow duration-300 secondary-font rounded-2xl mt-6 cursor-pointer text-sm 2xl:text-base"
@@ -171,6 +176,9 @@ const HomeHeroBanner = () => {
                   alt="Hero Banner"
                   width={1000}
                   height={1000}
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   className="w-full lg:max-w-[300px] xl:max-w-[380px] 2xl:max-w-[480px] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[500px] xl:min-h-[650px] 2xl:min-h-[826px] relative select-none pointer-events-none"
                 />
               </motion.div>
@@ -192,6 +200,9 @@ const HomeHeroBanner = () => {
                     alt="DollarX 3D Box"
                     width={500}
                     height={500}
+                    loading="eager"
+                    rel="preload"
+                    fetchPriority="high"
                     className="w-full sm:w-4/5 md:w-full lg:w-auto lg:h-auto max-w-full sm:max-w-[250px] md:max-w-[500px] lg:max-w-[280px] xl:max-w-[360px] 2xl:max-w-[500px] drop-shadow-[0_25px_65px_rgba(32,164,106,0.35)] select-none pointer-events-none"
                   />
                 </div>
@@ -200,6 +211,12 @@ const HomeHeroBanner = () => {
           </motion.div>
         </div>
       </div>
+
+      <ContactPopup
+        key={showContact ? "open" : "closed"}
+        isOpen={showContact}
+        onClose={() => setShowContact(false)}
+      />
     </section>
   );
 };

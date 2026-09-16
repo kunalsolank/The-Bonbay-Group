@@ -233,7 +233,7 @@ export default function Footer() {
                         href="tel:+2482513375"
                         className="text-white/50 font-normal hover:text-[#EED85F] no-underline transition-colors"
                       >
-                        +248 2 513 375
+                         +971 52 302 4973
                       </a>
                     </div>
 

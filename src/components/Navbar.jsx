@@ -66,7 +66,7 @@ const Navbar = () => {
           {/* LOGO */}
 
           <Link to="/" className="text-white text-2xl font-bold">
-            <img src={logo} alt="" />
+            <img src={logo} alt="" loading="lazy" />
           </Link>
 
           {/* DESKTOP NAV */}
