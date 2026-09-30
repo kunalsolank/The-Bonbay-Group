@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import HeroSubSection from "../components/subPagesComponents/HeroSubSection";
 import forexImage from "../assets/forexImg.webp";
 import MT5Image from "../assets/pl-img.webp";
@@ -12,8 +13,13 @@ import ThreeLinkCards from "../components/subPagesComponents/ThreeLinkCards";
 import TradingSteps from "../components/subPagesComponents/TradingSteps";
 import MarketOverview from "../components/subPagesComponents/MarketOverview";
 import TradingCTA from "../components/TradingCTA";
+import LivePricingTable from "../components/LivePricingTable";
 
 const Commodities = () => {
+  const navigate = useNavigate();
+  const handleAssetClick = (asset) => {
+    navigate("/commodities");
+  };
   const points = [
     {
       title: "Inflation-Resistant",
@@ -125,6 +131,43 @@ const Commodities = () => {
         buttonText="Start Trading"
         buttonLink="/open-account"
       />
+      <LivePricingTable category="METALS" onAssetClick={handleAssetClick} />
+      {/* Steps to Trade */}
+      <TradingSteps
+        eyebrow="Commodities Trading"
+        heading="Steps to Start Commodity Trading with "
+        highlight="Dollrex Capital Ltd."
+        points={[
+          {
+            number: "01",
+            title: "Sign Up Easily",
+            description:
+              "Open your free Dollrex Capital Ltd. trading account in just minutes — no paperwork, no hassle.",
+            icon: "◈",
+          },
+          {
+            number: "02",
+            title: "Choose Your Commodity",
+            description:
+              "Pick from gold, oil, silver, and more — whatever suits your market outlook.",
+            icon: "↗",
+          },
+          {
+            number: "03",
+            title: "Start Trading Smart",
+            description:
+              "Use real-time tools, charts, and analysis to enter or exit trades with confidence.",
+            icon: "⌁",
+          },
+          {
+            number: "04",
+            title: "Monitor & Grow",
+            description:
+              "Track your trades, adjust your strategy, and grow your skills with expert support.",
+            icon: "✓",
+          },
+        ]}
+      />
       <FeaturePoints
         eyebrow="Why Commodities?"
         heading="Why Choose Commodity Trading"
@@ -206,41 +249,6 @@ const Commodities = () => {
         image={MT5Image}
         heading="Trade With MT5 —The Global Standard"
         description="Experience the award-winning MetaTrader 5 platform with full DollreX Capital Ltd integration and mobile/web support."
-      />
-      <TradingSteps
-        eyebrow="Commodities Trading"
-        heading="Steps to Start Commodity Trading with "
-        highlight="Dollrex Capital Ltd."
-        points={[
-          {
-            number: "01",
-            title: "Sign Up Easily",
-            description:
-              "Open your free Dollrex Capital Ltd. trading account in just minutes — no paperwork, no hassle.",
-            icon: "◈",
-          },
-          {
-            number: "02",
-            title: "Choose Your Commodity",
-            description:
-              "Pick from gold, oil, silver, and more — whatever suits your market outlook.",
-            icon: "↗",
-          },
-          {
-            number: "03",
-            title: "Start Trading Smart",
-            description:
-              "Use real-time tools, charts, and analysis to enter or exit trades with confidence.",
-            icon: "⌁",
-          },
-          {
-            number: "04",
-            title: "Monitor & Grow",
-            description:
-              "Track your trades, adjust your strategy, and grow your skills with expert support.",
-            icon: "✓",
-          },
-        ]}
       />
       <FAQSection
         faqs={forexFAQs}

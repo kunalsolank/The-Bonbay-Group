@@ -49,18 +49,6 @@ export const CONTACT_FIELDS = [
   },
 
   {
-    name: "phone",
-    label: "PHONE NUMBER",
-    type: "phone",
-    placeholder: "Phone number",
-    autoComplete: "tel",
-    defaultCountry: "ae",
-
-    validation: {
-      required: false,
-    },
-  },
-  {
     name: "subject",
     label: "SUBJECT",
     type: "select",

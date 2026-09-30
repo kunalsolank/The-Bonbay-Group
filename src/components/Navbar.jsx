@@ -10,6 +10,7 @@ const Navbar = () => {
       name: "Trading",
       dropdown: [
         { name: "Forex", path: "/forex" },
+        { name: "Metals", path: "/metals" },
         { name: "Commodities", path: "/commodities" },
         { name: "Indices", path: "/indices" },
         { name: "Stocks", path: "/stocks" },

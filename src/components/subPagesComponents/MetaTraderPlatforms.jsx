@@ -1,164 +1,151 @@
-import React from "react";
-import { motion } from "framer-motion";
-import forexImage from "../../assets/forexImg.webp";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { Monitor, Smartphone, Globe, Download } from "lucide-react";
+
 const platforms = [
   {
     number: "01",
     title: "MT5 Desktop",
+    icon: Monitor,
     description:
-      "Experience powerful trading with MetaTrader 5 on your desktop. Analyze the markets with advanced charting tools, manage your orders smoothly, and enjoy fast execution—all in one professional platform designed for serious traders.",
-    image: forexImage,
+      "Experience powerful trading with MetaTrader 5 on your desktop. Analyze the markets with advanced charting tools, manage your orders smoothly, and enjoy fast execution - all in one professional platform designed for serious traders.",
+    buttons: ["Download for Windows", "Download for macOS"],
   },
   {
     number: "02",
     title: "MT5 Mobile",
+    icon: Smartphone,
     description:
       "Stay connected to the markets wherever you go. With MT5 on your Android or iOS device, you can trade with full functionality, including one-click trading and access to real-time price feeds, right at your fingertips.",
-    image: forexImage,
+    buttons: ["App Store", "Google Play"],
   },
   {
     number: "03",
     title: "MT5 Web",
+    icon: Globe,
     description:
-      "No downloads or installations required - MetaTrader 5 Web gives you instant access to your trading account from any internet browser. It’s fast, secure, and fully synced with your desktop and mobile accounts.",
-    image: forexImage,
+      "No downloads or installations required - MetaTrader 5 Web gives you instant access to your trading account from any internet browser. It's fast, secure, and fully synced with your desktop and mobile accounts.",
+    buttons: ["Launch Web Terminal"],
   },
 ];
 
 const MetaTraderPlatforms = () => {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start end", "center center"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [60, 0]);
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [0, 1]);
+
   return (
-    <section className="relative overflow-hidden bg-[#080908] py-24 text-white sm:py-32">
-      {/* Ambient Background */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 0.12 }}
-        viewport={{ once: true }}
-        transition={{ duration: 1.5 }}
-        className="pointer-events-none absolute -left-40 top-40 h-[500px] w-[500px] rounded-full bg-[#a0d311] blur-[180px]"
-      />
+    <section
+      ref={sectionRef}
+      className="relative overflow-hidden bg-[#080a09] py-20 sm:py-28"
+    >
+      {/* Background effects (matching TradingSteps) */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute -top-64 -right-64 w-[700px] h-[700px] rounded-full " />
+        <div className="absolute -bottom-72 -left-72 w-[650px] h-[650px] rounded-full " />
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage: `
+              linear-gradient(#ffffff 1px, transparent 1px),
+              linear-gradient(90deg, #ffffff 1px, transparent 1px)
+            `,
+            backgroundSize: "90px 90px",
+          }}
+        />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        {/* Header */}
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+
+        {/* Section header */}
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.8 }}
-          className="mb-20 max-w-3xl"
+          style={{ y, opacity }}
+          className="mb-14 sm:mb-18"
         >
-          <div className="mb-6 flex items-center gap-4">
-            <span className="h-px w-12 bg-[#20a46a]" />
-
-            <span className="text-xs font-medium uppercase tracking-[0.3em] text-[#20a46a]">
+          <div className="mb-4 flex items-center gap-3">
+            <span className="h-px w-10 bg-[#20a46a]" />
+            <span className="text-xs font-semibold uppercase tracking-[0.3em] text-[#20a46a]">
               Trading Platforms
             </span>
           </div>
 
-          <h2 className="font-serif text-5xl font-light leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">
-            Download
-            <br />
+          <h2 className="max-w-2xl text-4xl font-light leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            Download{" "}
             <span className="text-[#20a46a]">MetaTrader 5</span>
           </h2>
 
-          <p className="mt-7 max-w-2xl text-base leading-8 text-white/50 sm:text-lg">
-            Access the global markets from wherever you are. Choose the
-            MetaTrader 5 platform that fits the way you trade.
+          <p className="mt-5 max-w-xl text-sm leading-7 text-white/50 sm:text-base sm:leading-8">
+            Access global markets from wherever you are. Choose the platform
+            that fits the way you trade.
           </p>
         </motion.div>
 
-        {/* Platforms */}
-        <div>
-          {platforms.map((platform, index) => (
-            <motion.div
-              key={platform.number}
-              initial={{
-                opacity: 0,
-                y: 60,
-              }}
-              whileInView={{
-                opacity: 1,
-                y: 0,
-              }}
-              viewport={{
-                once: true,
-                amount: 0.2,
-              }}
-              transition={{
-                duration: 0.8,
-                delay: index * 0.15,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-              className="group border-t border-white/10 py-12 last:border-b sm:py-16"
-            >
-              <div className="grid items-center gap-10 lg:grid-cols-[80px_1fr_0.85fr] lg:gap-14">
+        {/* Cards row */}
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {platforms.map((platform, index) => {
+            const Icon = platform.icon;
+            return (
+              <motion.div
+                key={platform.number}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
+                transition={{
+                  duration: 0.7,
+                  delay: index * 0.12,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group relative flex flex-col rounded-2xl border border-white/[0.08] bg-[#0a0b0a] p-7 sm:p-8 transition-all duration-500 hover:border-[#20a46a]/30 hover:shadow-[0_0_40px_rgba(32,164,106,0.1)]"
+              >
+                {/* Top glow line on hover */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px rounded-t-2xl bg-gradient-to-r from-transparent via-[#20a46a]/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
                 {/* Number */}
-                <div className="hidden lg:block">
-                  <span className="font-serif text-5xl font-light text-white/15 transition-colors duration-500 group-hover:text-[#a0d311]/40">
-                    {platform.number}
-                  </span>
+                <span className="mb-5 block font-mono text-xs font-medium tracking-[0.25em] text-white/20">
+                  {platform.number}
+                </span>
+
+                {/* Icon */}
+                <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-[#20a46a]/10 transition-all duration-500 group-hover:border-[#20a46a]/40 group-hover:bg-[#20a46a]/15">
+                  <Icon size={20} className="text-[#20a46a]" />
                 </div>
 
-                {/* Image */}
-                <div className="relative overflow-hidden">
-                  <motion.div
-                    whileHover={{ scale: 1.04 }}
-                    transition={{
-                      duration: 0.8,
-                      ease: "easeOut",
-                    }}
-                    className="relative"
-                  >
-                    <img
-                      src={platform.image}
-                      alt={platform.title}
-                      className="h-[280px] w-full object-cover sm:h-[360px] lg:h-[390px]"
-                    />
+                {/* Title */}
+                <h3 className="mb-3 text-xl font-medium text-white sm:text-2xl">
+                  {platform.title}
+                </h3>
 
-                    {/* Image Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                {/* Divider */}
+                <div className="mb-4 h-px w-8 bg-[#20a46a]/40 transition-all duration-500 group-hover:w-14 group-hover:bg-[#20a46a]" />
 
-                    {/* Mobile Number */}
-                    <div className="absolute left-5 top-5 lg:hidden">
-                      <span className="font-serif text-4xl text-white/70">
-                        {platform.number}
-                      </span>
-                    </div>
-                  </motion.div>
+                {/* Description */}
+                <p className="flex-1 text-sm leading-7 text-white/50 sm:text-base">
+                  {platform.description}
+                </p>
 
-                  {/* Image Border */}
-                  <div className="pointer-events-none absolute inset-0 border border-white/10 transition-colors duration-500 group-hover:border-[#a0d311]/40" />
+                {/* Download buttons */}
+                <div className="mt-7 flex flex-wrap gap-2.5">
+                  {platform.buttons.map((label) => (
+                    <button
+                      key={label}
+                      type="button"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-white/60 transition-all duration-300 hover:border-[#20a46a]/50 hover:bg-[#20a46a]/10 hover:text-[#20a46a]"
+                    >
+                      <Download size={11} />
+                      {label}
+                    </button>
+                  ))}
                 </div>
-
-                {/* Content */}
-                <div>
-                  <div className="mb-5 flex items-center gap-4">
-                    <span className="h-px w-8 bg-[#20a46a] transition-all duration-500 group-hover:w-14" />
-
-                    <span className="text-xs uppercase tracking-[0.25em] text-white/40">
-                      MetaTrader 5
-                    </span>
-                  </div>
-
-                  <h3 className="font-serif text-3xl font-light text-white sm:text-4xl lg:text-5xl">
-                    {platform.title}
-                  </h3>
-
-                  <p className="mt-6 max-w-xl text-sm leading-7 text-white/50 sm:text-base sm:leading-8">
-                    {platform.description}
-                  </p>
-
-                  {/* Decorative Line */}
-                  <div className="mt-8 flex items-center gap-3">
-                    <div className="h-px w-8 bg-white/20 transition-all duration-500 group-hover:w-16 group-hover:bg-[#20a46a]" />
-
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/30">
-                      Trade Anywhere
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>

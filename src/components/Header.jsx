@@ -19,22 +19,22 @@ export default function Header() {
   };
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-[#ffffff]  shadow-sm border-b border-[#ffffff1f] z-50">
-      <div className="max-w-[89.375rem] mx-auto px-4 py-5">
+    <header className="fixed top-0 left-0 w-full bg-[#ffffff] border-b border-[#ffffff1f] z-50">
+      <div className="max-w-357.5 mx-auto px-4 py-5">
         <div className="flex justify-between items-center">
           {/* =========================
               LOGO
           ========================== */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <Link to="/" className="flex items-center" onClick={closeMenu}>
-              <img src={logo} alt="TradeLogicFX" loading="lazy" className="h-[50px] w-auto" />
+              <img src={logo} alt="TradeLogicFX" loading="lazy" className="h-12.5 w-auto" />
             </Link>
           </div>
 
           {/* =========================
               DESKTOP NAVIGATION
           ========================== */}
-          <nav className="hidden md:flex gap-[30px] items-center">
+          <nav className="hidden md:flex gap-7.5 items-center">
             {/* Trading */}
             <div className="relative group">
               <button
@@ -55,14 +55,20 @@ export default function Header() {
               </button>
 
               {/* Trading Dropdown */}
-              <div className="absolute top-full left-0 hidden group-hover:block text-white min-w-[200px]">
+              <div className="absolute top-full left-0 hidden group-hover:block text-white min-w-50">
                 <div className="pt-8">
-                  <div className="shadow-sm border border-[#ffffff1f] rounded-lg z-20 min-w-[250px] bg-[#05040b] overflow-hidden">
+                  <div className="border border-[#ffffff1f] rounded-lg z-20 min-w-62.5 bg-[#05040b] overflow-hidden">
                     <Link
                       to="/forex"
                       className="block px-4 py-3  hover:text-[#20a46a] transition-colors"
                     >
                       Forex
+                    </Link>
+                    <Link
+                      to="/metals"
+                      className="block px-4 py-3 hover:text-[#20a46a] transition-colors"
+                    >
+                      Metals
                     </Link>
                     <Link
                       to="/commodities"
@@ -111,7 +117,7 @@ export default function Header() {
               {/* Account Dropdown */}
               <div className="absolute top-full left-0 hidden group-hover:block text-white">
                 <div className="pt-8">
-                  <div className="shadow-sm border border-[#ffffff1f] rounded-lg z-20 min-w-[250px] bg-[#05040b] overflow-hidden">
+                  <div className="border border-[#ffffff1f] rounded-lg z-20 min-w-62.5 bg-[#05040b] overflow-hidden">
                     <Link
                       to="/account-compare"
                       className="block px-4 py-3 hover:text-[#20a46a] transition-colors"
@@ -150,9 +156,9 @@ export default function Header() {
               </button>
 
               {/* Tools Dropdown */}
-              <div className="absolute top-full left-0 hidden group-hover:block text-white min-w-[200px]">
+              <div className="absolute top-full left-0 hidden group-hover:block text-white min-w-50">
                 <div className="pt-8">
-                  <div className="shadow-sm border border-[#ffffff1f] rounded-lg z-20 min-w-[250px] bg-[#05040b] overflow-hidden">
+                  <div className="border border-[#ffffff1f] rounded-lg z-20 min-w-62.5 bg-[#05040b] overflow-hidden">
                     <Link
                       to="/platform"
                       className="block px-4 py-3  hover:text-[#20a46a] transition-colors"
@@ -198,15 +204,18 @@ export default function Header() {
               DESKTOP CTA
           ========================== */}
           <div className="hidden lg:block">
-            <Link
-              to="/open-account"
-              className="group flex items-center gap-3 bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] text-white px-5 py-3 rounded-full font-semibold text-sm hover:scale-[1.03] transition-all duration-300"
+            <a
+              href="https://portal.dollrexcapital.com/register-new/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-3 bg-linear-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] text-white px-5 py-3 rounded-full font-semibold text-sm hover:scale-[1.03] transition-all duration-300"
             >
               Open Account
+
               <span className="w-7 h-7 rounded-full bg-white text-[#1fa864] flex items-center justify-center group-hover:translate-x-1 transition-transform">
                 →
               </span>
-            </Link>
+            </a>
           </div>
 
           {/* =========================
@@ -264,9 +273,8 @@ export default function Header() {
                   <span>Trading</span>
 
                   <svg
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      activeDropdown === "trading" ? "rotate-180" : ""
-                    }`}
+                    className={`w-5 h-5 transition-transform duration-300 ${activeDropdown === "trading" ? "rotate-180" : ""
+                      }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -288,6 +296,13 @@ export default function Header() {
                       onClick={closeMenu}
                     >
                       Forex
+                    </Link>
+                    <Link
+                      to="/metals"
+                      className="block py-2 text-white hover:text-[#20a46a] transition-colors"
+                      onClick={closeMenu}
+                    >
+                      Metals
                     </Link>
                     <Link
                       to="/commodities"
@@ -328,9 +343,8 @@ export default function Header() {
                   <span>Account</span>
 
                   <svg
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      activeDropdown === "account" ? "rotate-180" : ""
-                    }`}
+                    className={`w-5 h-5 transition-transform duration-300 ${activeDropdown === "account" ? "rotate-180" : ""
+                      }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -377,9 +391,8 @@ export default function Header() {
                   <span>Tools</span>
 
                   <svg
-                    className={`w-5 h-5 transition-transform duration-300 ${
-                      activeDropdown === "tools" ? "rotate-180" : ""
-                    }`}
+                    className={`w-5 h-5 transition-transform duration-300 ${activeDropdown === "tools" ? "rotate-180" : ""
+                      }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -447,7 +460,7 @@ export default function Header() {
               <div className="pt-4 px-3">
                 <button
                   type="button"
-                  className="w-full  bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] text-white px-6 py-3 font-medium uppercase secondary-font tracking-wide rounded-md"
+                  className="w-full  bg-linear-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] text-white px-6 py-3 font-medium uppercase secondary-font tracking-wide rounded-md"
                   onClick={closeMenu}
                 >
                   Get Started

@@ -6,11 +6,12 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import EarthImage from "../assets/Experience Trading.png";
+import EarthImage from "../assets/Experience Trading.webp";
 import lines from "../assets/banner-image-bg.webp";
 import featherleft from "../assets/feather-left.webp";
 import featherright from "../assets/feather-right.webp";
 import ContactPopup from "./ContactPopup";
+import submitContactForm from "../services/contact";
 
 const HomeHeroBanner = () => {
   const sectionRef = useRef(null);
@@ -24,25 +25,24 @@ const HomeHeroBanner = () => {
     offset: ["start start", "end start"],
   });
 
-  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "28%"]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.75], [1, 0]);
-  const linesY = useTransform(scrollYProgress, [0, 1], ["0%", "14%"]);
-  const earthScrollY = useTransform(scrollYProgress, [0, 1], ["0%", "26%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const linesY = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
+  const earthScrollY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const earthScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
-  const glowScale = useTransform(scrollYProgress, [0, 1], [1, 1.35]);
 
   /* ---------------------------------------------------
-     MOUSE & TOUCH PARALLAX — 3D responsiveness
+     MOUSE & TOUCH PARALLAX — 3D responsiveness like Account Compare
   --------------------------------------------------- */
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const springX = useSpring(mouseX, { stiffness: 45, damping: 20 });
-  const springY = useSpring(mouseY, { stiffness: 45, damping: 20 });
+  const springX = useSpring(mouseX, { stiffness: 50, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 50, damping: 20 });
 
-  const earthShiftX = useTransform(springX, [-1, 1], [-22, 22]);
-  const earthShiftY = useTransform(springY, [-1, 1], [-22, 22]);
-  const linesShiftX = useTransform(springX, [-1, 1], [-10, 10]);
-  const linesShiftY = useTransform(springY, [-1, 1], [-10, 10]);
+  const earthShiftX = useTransform(springX, [-1, 1], [-25, 25]);
+  const earthShiftY = useTransform(springY, [-1, 1], [-25, 25]);
+  const linesShiftX = useTransform(springX, [-1, 1], [-12, 12]);
+  const linesShiftY = useTransform(springY, [-1, 1], [-12, 12]);
 
   const handleMouseMove = (e) => {
     if (!sectionRef.current) return;
@@ -63,20 +63,29 @@ const HomeHeroBanner = () => {
     mouseY.set(y);
   };
 
+  const handleSubmit = async (payload) => {
+    const values = payload?.values || payload;
+    try {
+      if (submitContactForm) {
+        await submitContactForm(values);
+      }
+      return { errors: {}, success: true, values };
+    } catch (error) {
+      return {
+        errors: { form: error?.message || "Something went wrong..." },
+        success: false,
+        values,
+      };
+    }
+  };
   return (
     <section
       ref={sectionRef}
       onMouseMove={handleMouseMove}
       onTouchMove={handleTouchMove}
-      className="relative lg:h-[680px] xl:h-[800px] 2xl:h-[921px] h-full border-b border-white/5 px-3 sm:px-5 lg:px-5 overflow-hidden"
+      className="relative lg:h-[680px] xl:h-[800px] 2xl:h-[921px] h-full overflow-hidden bg-[#05040b] text-white flex items-center"
     >
-      <div className="relative lg:h-[680px] xl:h-[800px] 2xl:h-[920px] h-full overflow-hidden bg-[#080908]">
-        {/* Top Left Glowing Parallax Gradient */}
-        <motion.div
-          style={{ scale: glowScale }}
-          className="absolute -top-[150px] -left-[150px] w-[400px] h-[400px] sm:w-[500px] sm:h-[500px] lg:-top-[200px] lg:-left-[200px] lg:w-[550px] lg:h-[550px] 2xl:-top-[250px] 2xl:-left-[250px] 2xl:w-[650px] 2xl:h-[650px] rounded-full bg-gradient-to-br from-[#1fa864]/30 via-[#258d87]/15 to-transparent blur-[100px] 2xl:blur-[120px] pointer-events-none"
-        />
-
+      <div className="relative w-full lg:h-[680px] xl:h-[800px] 2xl:h-[920px] h-full overflow-hidden bg-[#05040b]">
         <div className="flex flex-col lg:flex-row mx-4 sm:mx-8 lg:mx-[32px] xl:mx-[48px] 2xl:mx-[61.5px] px-[15px] justify-between relative overflow-hidden h-full items-center pt-30 sm:pt-16 lg:pt-[50px] xl:pt-[70px] 2xl:pt-[84px] pb-8 lg:pb-0">
           {/* Left Content with scroll parallax */}
           <motion.div
@@ -147,9 +156,9 @@ const HomeHeroBanner = () => {
               <motion.button
                 type="button"
                 onClick={() => setShowContact(true)}
-                whileHover={{ scale: 1.05, boxShadow: "0 10px 35px rgba(31,168,100,0.35)" }}
+                whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.97 }}
-                className="bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] px-6 py-3 lg:px-7 lg:py-3 2xl:px-8 2xl:py-3.5 font-medium uppercase tracking-wide text-white transition-shadow duration-300 secondary-font rounded-2xl mt-6 cursor-pointer text-sm 2xl:text-base"
+                className="bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] px-6 py-3 lg:px-7 lg:py-3 2xl:px-8 2xl:py-3.5 font-medium uppercase tracking-wide text-white transition-all duration-300 secondary-font rounded-2xl mt-6 cursor-pointer text-sm 2xl:text-base"
               >
                 Get Started
               </motion.button>
@@ -176,7 +185,7 @@ const HomeHeroBanner = () => {
                   alt="Hero Banner"
                   width={1000}
                   height={1000}
-                  loading="eager"
+                  loading="lazy"
                   fetchPriority="high"
                   decoding="async"
                   className="w-full lg:max-w-[300px] xl:max-w-[380px] 2xl:max-w-[480px] min-h-[400px] sm:min-h-[500px] md:min-h-[600px] lg:min-h-[500px] xl:min-h-[650px] 2xl:min-h-[826px] relative select-none pointer-events-none"
@@ -200,7 +209,7 @@ const HomeHeroBanner = () => {
                     alt="DollarX 3D Box"
                     width={500}
                     height={500}
-                    loading="eager"
+                    loading="enger"
                     rel="preload"
                     fetchPriority="high"
                     className="w-full sm:w-4/5 md:w-full lg:w-auto lg:h-auto max-w-full sm:max-w-[250px] md:max-w-[500px] lg:max-w-[280px] xl:max-w-[360px] 2xl:max-w-[500px] drop-shadow-[0_25px_65px_rgba(32,164,106,0.35)] select-none pointer-events-none"
@@ -216,6 +225,7 @@ const HomeHeroBanner = () => {
         key={showContact ? "open" : "closed"}
         isOpen={showContact}
         onClose={() => setShowContact(false)}
+        onSubmit={handleSubmit}
       />
     </section>
   );

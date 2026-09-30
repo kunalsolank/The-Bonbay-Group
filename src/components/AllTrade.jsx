@@ -21,8 +21,14 @@ const markets = [
   { id: 9, name: "Bonds", icon: "BO", count: "US & EU Treasuries", spread: "Prime Liquidity" },
 ];
 
-const AllTrade = () => {
-  const [activeIndex, setActiveIndex] = React.useState(0);
+const AllTrade = ({ category }) => {
+  const categoryMap = {
+    "METALS": 1,
+    "INDEX CFDS": 2,
+    "US STOCKS": 3,
+    "COMMODITIES": 4,
+  };
+  const [activeIndex, setActiveIndex] = React.useState(categoryMap[category] || 0);
 
   return (
     <section className="relative w-full overflow-hidden bg-[#05040b] pt-8 pb-14 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-18 xl:pt-14 xl:pb-20">
@@ -169,7 +175,7 @@ const AllTrade = () => {
           {/* CTA */}
           <div className="mt-6 sm:mt-7 lg:mt-8">
             <Link
-              to="/login"
+              to="https://portal.dollrexcapital.com/register-new/"
               className="
                 group/btn relative
                 inline-flex

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import HeroSubSection from "../components/subPagesComponents/HeroSubSection";
 import forexImage from "../assets/forexImg.webp";
 import MT5Image from "../assets/pl-img.webp";
@@ -12,7 +13,12 @@ import ThreeLinkCards from "../components/subPagesComponents/ThreeLinkCards";
 import MarketOverview from "../components/subPagesComponents/MarketOverview";
 import TradingSteps from "../components/subPagesComponents/TradingSteps";
 import TradingCTA from "../components/TradingCTA";
+import LivePricingTable from "../components/LivePricingTable";
 const Stocks = () => {
+  const navigate = useNavigate();
+  const handleAssetClick = (asset) => {
+    navigate("/stocks");
+  };
   const points = [
     {
       title: "Instant Access to Global Brands",
@@ -124,13 +130,50 @@ const Stocks = () => {
         description="Explore stock CFDs with top names like Apple, Tesla, and Meta. Start small, diversify fast, and trade with low spreads."
         image={forexImage}
         buttonText="Start Trading"
-        buttonLink="/open-account"
+        buttonLink="https://portal.dollrexcapital.com/register-new/"
       />
       <FeaturePoints
         eyebrow="Why Stocks?"
         heading="Why Trade Stocks with Dollrex Capital Ltd.?"
         subheading="When you choose to trade stocks with Dollrex Capital Ltd. you step into a world of speed, flexibility, and top-tier access to the biggest brands in global finance and tech."
         points={points}
+      />
+      <LivePricingTable category="US STOCKS" onAssetClick={handleAssetClick} />
+      {/* Steps to Trade */}
+      <TradingSteps
+        eyebrow="Stocks Trading"
+        heading="How to Start Trading with"
+        highlight="Dollrex Capital Ltd."
+        points={[
+          {
+            number: "01",
+            title: "Create Your Account",
+            description:
+              "Register with Dollrex Capital Ltd. in minutes and get access to your trading dashboard.",
+            icon: "◈",
+          },
+          {
+            number: "02",
+            title: "Choose Your Instrument",
+            description:
+              "Pick from stocks, commodities, indices, and more, all on one platform.",
+            icon: "↗",
+          },
+          {
+            number: "03",
+            title: "Use Powerful Tools",
+            description:
+              "Analyze trends and get real-time data with our advanced charting features.",
+            icon: "⌁",
+          },
+          {
+            number: "04",
+            title: "Place Your Trade",
+            description:
+              "Buy or sell with just a few clicks. Use leverage wisely and manage your risk smartly.",
+            icon: "✓",
+          },
+        ]}
       />
       <FeatureList
         heading="Top Traded Stocks in 2025"
@@ -203,41 +246,6 @@ const Stocks = () => {
         image={MT5Image}
         heading="How to Start Trading with Dollrex Capital Ltd."
         description="Experience the award-winning MetaTrader 5 platform with full DollreX Capital Ltd integration and mobile/web support."
-      />
-      <TradingSteps
-        eyebrow="Stocks Trading"
-        heading="How to Start Trading with"
-        highlight="Dollrex Capital Ltd."
-        points={[
-          {
-            number: "01",
-            title: "Create Your Account",
-            description:
-              "Register with Dollrex Capital Ltd. in minutes and get access to your trading dashboard.",
-            icon: "◈",
-          },
-          {
-            number: "02",
-            title: "Choose Your Instrument",
-            description:
-              "Pick from stocks, commodities, indices, and more, all on one platform.",
-            icon: "↗",
-          },
-          {
-            number: "03",
-            title: "Use Powerful Tools",
-            description:
-              "Analyze trends and get real-time data with our advanced charting features.",
-            icon: "⌁",
-          },
-          {
-            number: "04",
-            title: "Place Your Trade",
-            description:
-              "Buy or sell with just a few clicks. Use leverage wisely and manage your risk smartly.",
-            icon: "✓",
-          },
-        ]}
       />
       <FAQSection
         faqs={forexFAQs}

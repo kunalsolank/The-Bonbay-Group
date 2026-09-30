@@ -142,7 +142,7 @@ const PartnershipHero = () => {
               className="mt-10 flex flex-wrap items-center gap-5"
             >
               <a
-                href="#Requirements"
+                href="https://portal.dollrexcapital.com/register-new/"
                 className="
                   group
                   inline-flex

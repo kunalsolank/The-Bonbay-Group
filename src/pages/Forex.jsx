@@ -1,4 +1,5 @@
 import HeroSubSection from "../components/subPagesComponents/HeroSubSection";
+import { useNavigate } from "react-router-dom";
 import forexImage from "../assets/forexImg.webp";
 import MT5Image from "../assets/pl-img.webp";
 import marketsImage from "../assets/Computer.avif";
@@ -13,7 +14,12 @@ import ThreeLinkCards from "../components/subPagesComponents/ThreeLinkCards";
 import MarketOverview from "../components/subPagesComponents/MarketOverview";
 import TradingSteps from "../components/subPagesComponents/TradingSteps";
 import TradingCTA from "../components/TradingCTA";
+import LivePricingTable from "../components/LivePricingTable";
 const Forex = () => {
+  const navigate = useNavigate();
+  const handleAssetClick = (asset) => {
+    navigate("/forex");
+  };
   const points = [
     {
       title: "Spreads",
@@ -116,7 +122,7 @@ const Forex = () => {
         " Yes, our support team is available 24/5 via WhatsApp, live chat, and email. We’re here to assist you with everything from platform help to account queries. ",
     },
   ];
-  return (
+return (
     <div>
       <HeroSubSection
         eyebrow="Forex Trading"
@@ -125,7 +131,43 @@ const Forex = () => {
         description="Trade gold, silver, and other top commodities - all on one trading platform offering up to 200x leverage for greater flexibility and potential returns."
         image={forexImage}
         buttonText="Start Trading"
-        buttonLink="/open-account"
+        buttonLink="https://portal.dollrexcapital.com/register-new/"
+      />
+      <LivePricingTable category="FOREX" onAssetClick={handleAssetClick} />
+        <TradingSteps
+        eyebrow="Forex Trading"
+        heading="Get Started in  "
+        highlight="Four Simple Steps."
+        points={[
+          {
+            number: "01",
+            title: "Create Your Account",
+            description:
+              "Sign up securely in minutes using your email or mobile number.",
+            icon: "◈",
+          },
+          {
+            number: "02",
+            title: "Verify Your Identity",
+            description:
+              "Upload your KYC documents and get verified fast by our compliance team.",
+            icon: "↗",
+          },
+          {
+            number: "03",
+            title: "Fund Your Wallet",
+            description:
+              "Choose from USDT, bank wire, or cash deposit — funding made local and easy.",
+            icon: "⌁",
+          },
+          {
+            number: "04",
+            title: "Start Trading Forex",
+            description:
+              "Log in to MT5 and access the full currency market — anytime, anywhere",
+            icon: "✓",
+          },
+        ]}
       />
       <FeaturePoints
         eyebrow="Why Trade Forex"
@@ -137,8 +179,8 @@ const Forex = () => {
         heading="Your Forex Edge Starts Here."
         subheading="Whether you’re scalping majors or swing trading minors, our technology and terms help you trade on your terms."
         points={FeatureListpoints}
-      />
-      <MarketOverview
+/>
+       <MarketOverview
         eyebrow="Forex Trading"
         heading="The World's Most"
         highlight="Traded Market"
@@ -209,41 +251,7 @@ const Forex = () => {
         heading="Trade With MT5 —The Global Standard"
         description="Experience the award-winning MetaTrader 5 platform with full DollreX Capital Ltd integration and mobile/web support."
       />
-      <TradingSteps
-        eyebrow="Forex Trading"
-        heading="Get Started in  "
-        highlight="Four Simple Steps."
-        points={[
-          {
-            number: "01",
-            title: "Create Your Account",
-            description:
-              "Sign up securely in minutes using your email or mobile number.",
-            icon: "◈",
-          },
-          {
-            number: "02",
-            title: "Verify Your Identity",
-            description:
-              "Upload your KYC documents and get verified fast by our compliance team.",
-            icon: "↗",
-          },
-          {
-            number: "03",
-            title: "Fund Your Wallet",
-            description:
-              "Choose from USDT, bank wire, or cash deposit — funding made local and easy.",
-            icon: "⌁",
-          },
-          {
-            number: "04",
-            title: "Start Trading Forex",
-            description:
-              "Log in to MT5 and access the full currency market — anytime, anywhere",
-            icon: "✓",
-          },
-        ]}
-      />
+    
       <FAQSection
         faqs={forexFAQs}
         eyebrow="Forex FAQ"

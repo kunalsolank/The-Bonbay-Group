@@ -27,11 +27,11 @@ export default function ReusableForm({
     const value = values[name] ?? "";
 
     const inputClassName = `
-      mt-2 w-full
+      mt-1 w-full
       border-b
       bg-transparent
-      pb-2
-      text-black
+      pb-1.5
+      text-base sm:text-sm text-black
       placeholder-black/30
       outline-none
       transition-colors
@@ -47,7 +47,7 @@ export default function ReusableForm({
         return (
           <textarea
             name={name}
-            rows={rows}
+            rows={rows || 3}
             value={value}
             placeholder={placeholder}
             autoComplete={autoComplete}
@@ -74,6 +74,7 @@ export default function ReusableForm({
               appearance-none
               bg-white
               pr-8
+              cursor-pointer
             `}
           >
             <option value="" disabled>
@@ -102,7 +103,7 @@ export default function ReusableForm({
             name={name}
             placeholder={placeholder}
             autoComplete={autoComplete}
-            className="contact-phone-input mt-2"
+            className="contact-phone-input mt-1"
             inputClassName="contact-phone-field"
             countrySelectorStyleProps={{
               buttonClassName:
@@ -129,24 +130,20 @@ export default function ReusableForm({
   };
 
   return (
-    <div className="grid grid-cols-1 gap-x-8 gap-y-5 sm:grid-cols-2">
+    <div className="grid grid-cols-1 gap-y-2.5 sm:gap-y-4">
       {fields.map((field) => (
         <label
           key={field.name}
-          className={
-            field.fullWidth
-              ? "block sm:col-span-2"
-              : "block"
-          }
+          className="block"
         >
-          <span className="block text-xs font-medium tracking-[0.15em] text-black/50">
+          <span className="block text-[10px] sm:text-xs font-medium tracking-[0.15em] text-black/50 uppercase">
             {field.label}
           </span>
 
           {renderField(field)}
 
           {errors[field.name] && (
-            <span className="mt-2 block text-xs text-red-500">
+            <span className="mt-1.5 block text-xs text-red-500">
               {errors[field.name]}
             </span>
           )}

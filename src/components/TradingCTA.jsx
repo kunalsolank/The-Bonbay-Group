@@ -174,7 +174,7 @@ const TradingCTA = () => {
                 {/* CTA */}
                 <div className="mt-6">
                   <Link
-                    to="/register"
+                    to="https://portal.dollrexcapital.com/register-new/"
                     className="
                       group/btn
                       inline-flex

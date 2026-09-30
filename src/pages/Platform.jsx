@@ -5,6 +5,7 @@ import MetaTraderPlatforms from "../components/subPagesComponents/MetaTraderPlat
 import TradingSteps from "../components/subPagesComponents/TradingSteps";
 import FAQSection from "../components/subPagesComponents/FAQSection";
 import TradingCTA from "../components/TradingCTA";
+import mt5 from "../assets/mt5.webp";
 const Platform = () => {
   const platforms = [
     {
@@ -12,28 +13,28 @@ const Platform = () => {
       title: "Forex",
       description:
         "Access major, minor, and exotic currency pairs with ultra-low spreads and high leverage.",
-      image: forexImage,
+      image: "https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-01.webp",
     },
     {
       number: "02",
       title: "Commodities",
       description:
         "Speculate on gold, silver, oil, and other essentials — with competitive margins.",
-      image: forexImage,
+      image: 'https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-02.webp',
     },
     {
       number: "03",
       title: "Indices",
       description:
         "Trade global indices like US30, FTSE, and DAX with minimal slippage and volatility protection.",
-      image: forexImage,
+      image: 'https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-03.webp',
     },
     {
       number: "04",
       title: "Stocks",
       description:
         "Explore CFD trading on top global shares without owning the underlying asset.",
-      image: forexImage,
+      image: 'https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-04.webp',
     },
   ];
   const forexFAQs = [
@@ -97,7 +98,7 @@ const Platform = () => {
         description="Join millions of traders using MT5 for faster trades, deeper insights, and reliable performance."
         image={forexImage}
         buttonText="Start Trading on MT5"
-        buttonLink="/open-account"
+        buttonLink="https://portal.dollrexcapital.com/register-new/"
       />
       <section className="relative overflow-hidden bg-[#080908] py-24 sm:py-32">
         {/* Background Accent */}
@@ -182,7 +183,7 @@ const Platform = () => {
                 className="group relative overflow-hidden"
               >
                 <img
-                  src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1400&q=85"
+                  src={mt5}
                   alt="Premium financial experience"
                   className="h-105 w-full object-cover transition-transform duration-1000 group-hover:scale-105 sm:h-125 lg:h-150"
                 />
@@ -274,15 +275,9 @@ const Platform = () => {
             </div>
 
             <h2 className="font-serif text-5xl font-light leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-              Download
-              <br />
-              <span className="text-[#20a46a]">MetaTrader 5</span>
+             Trade What Moves the Market
             </h2>
 
-            <p className="mt-7 max-w-2xl text-base leading-8 text-white/50 sm:text-lg">
-              Trade the markets your way with MetaTrader 5 across desktop,
-              mobile, and web.
-            </p>
           </motion.div>
 
           {/* Platform Items */}

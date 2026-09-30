@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import HeroSubSection from "../components/subPagesComponents/HeroSubSection";
 import forexImage from "../assets/forexImg.webp";
 import MT5Image from "../assets/pl-img.webp";
@@ -12,7 +13,12 @@ import MarketOverview from "../components/subPagesComponents/MarketOverview";
 import TradingSteps from "../components/subPagesComponents/TradingSteps";
 import ThreeLinkCards from "../components/subPagesComponents/ThreeLinkCards";
 import TradingCTA from "../components/TradingCTA";
+import LivePricingTable from "../components/LivePricingTable";
 const Indices = () => {
+  const navigate = useNavigate();
+  const handleAssetClick = (asset) => {
+    navigate("/indices");
+  };
   const points = [
     {
       title: "Instant Market Exposure",
@@ -124,7 +130,44 @@ const Indices = () => {
         description="Tap into the power of the world’s most influential stock indices like US Wall Street 30, NASDAQ 100, and Germany’s DAX with Dollrex Capital Ltd."
         image={forexImage}
         buttonText="Start Trading"
-        buttonLink="/open-account"
+        buttonLink="https://portal.dollrexcapital.com/register-new/"
+      />
+      <LivePricingTable category="INDEX CFDS" onAssetClick={handleAssetClick} />
+      {/* Steps to Trade */}
+      <TradingSteps
+        eyebrow="Indices Trading"
+        heading="How to Start Trading with"
+        highlight="Dollrex Capital Ltd."
+        points={[
+          {
+            number: "01",
+            title: "Create Your Account",
+            description:
+              "Sign up with Dollrex Capital Ltd. in minutes — fast, secure, and beginner-friendly.",
+            icon: "◈",
+          },
+          {
+            number: "02",
+            title: "Explore Markets",
+            description:
+              "Access global indices, commodities like gold or oil, and more.",
+            icon: "↗",
+          },
+          {
+            number: "03",
+            title: "Use Our Tools",
+            description:
+              "Analyze market trends and access real-time insights with Dollrex Capital Ltd.'s trading platform.",
+            icon: "⌁",
+          },
+          {
+            number: "04",
+            title: "Start Trading",
+            description:
+              "Open your first trade with flexible trading conditions and powerful market access.",
+            icon: "✓",
+          },
+        ]}
       />
       <FeaturePoints
         eyebrow="Why Indices?"
@@ -198,41 +241,6 @@ const Indices = () => {
         image={MT5Image}
         heading="Trade With MT5 —The Global Standard"
         description="Experience the award-winning MetaTrader 5 platform with full DollreX Capital Ltd integration and mobile/web support."
-      />
-      <TradingSteps
-        eyebrow="Indices Trading"
-        heading="How to Start Trading with"
-        highlight="Dollrex Capital Ltd."
-        points={[
-          {
-            number: "01",
-            title: "Create Your Account",
-            description:
-              "Sign up with Dollrex Capital Ltd. in minutes — fast, secure, and beginner-friendly.",
-            icon: "◈",
-          },
-          {
-            number: "02",
-            title: "Explore Markets",
-            description:
-              "Access global indices, commodities like gold or oil, and more.",
-            icon: "↗",
-          },
-          {
-            number: "03",
-            title: "Use Our Tools",
-            description:
-              "Analyze market trends and access real-time insights with Dollrex Capital Ltd.'s trading platform.",
-            icon: "⌁",
-          },
-          {
-            number: "04",
-            title: "Start Trading",
-            description:
-              "Open your first trade with flexible trading conditions and powerful market access.",
-            icon: "✓",
-          },
-        ]}
       />
       <FAQSection
         faqs={forexFAQs}

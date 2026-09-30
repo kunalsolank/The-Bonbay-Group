@@ -1,38 +1,36 @@
-import React from "react";
-
+import {
+  Dialog,
+  DialogContent,
+} from "@/components/ui/dialog";
+import { twMerge } from "tailwind-merge";
 export default function Modal({
   isOpen,
   onClose,
   children,
-  panelClassName = "bg-white p-6 max-w-md",
-  closeButtonClassName = "text-gray-400 hover:text-gray-600",
+  panelClassName = "",
 }) {
-  if (!isOpen) return null;
-
   return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-2 transition-opacity duration-300 sm:p-4"
-      onClick={onClose}
-      role="presentation"
-    >
-      <div
-        className={`relative w-full transform overflow-hidden rounded-xl shadow-2xl transition-all ${panelClassName}`}
-        onClick={(event) => event.stopPropagation()}
-        role="dialog"
-        aria-modal="true"
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent
+        className={twMerge(
+          `
+            w-[calc(100vw-1.5rem)]
+            max-w-[95vw]
+            sm:max-w-[500px]
+            md:max-w-[540px]
+            h-auto
+            max-h-[calc(100dvh-2rem)]
+            max-h-[calc(100vh-2rem)]
+            overflow-y-auto
+            overscroll-contain
+            rounded-2xl
+            p-0
+          `,
+          panelClassName
+        )}
       >
-        <button
-          type="button"
-          onClick={onClose}
-          className={`absolute right-4 top-4 transition-colors ${closeButtonClassName}`}
-          aria-label="Close modal"
-        >
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
         {children}
-      </div>
-    </div>
+      </DialogContent>
+    </Dialog>
   );
 }

@@ -42,6 +42,13 @@ html {
   color: #000 !important;
   box-shadow: none !important;
   outline: none !important;
+  font-size: 16px !important;
+}
+
+@media (min-width: 640px) {
+  .contact-phone-field {
+    font-size: 14px !important;
+  }
 }
 
 .contact-phone-field::placeholder {
@@ -53,6 +60,10 @@ html {
   border-right: 1px solid rgb(0 0 0 / 0.1) !important;
   background: transparent !important;
   color: #000 !important;
+}
+
+.react-international-phone-country-selector-dropdown {
+  z-index: 60 !important;
 }
 
 @keyframes retro-grid-scroll {

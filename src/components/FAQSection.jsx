@@ -331,7 +331,7 @@ const FAQSection = () => {
                               style={{
                                 transformOrigin: "left",
                               }}
-                              className="mb-4 h-px w-full bg-gradient-to-r from-[#00ff87]/30 via-white/[0.06] to-transparent"
+                              className="mb-4 h-px w-full bg-linear-to-r from-[#00ff87]/30 via-white/6 to-transparent"
                             />
 
                             {/* Answer */}
@@ -382,13 +382,13 @@ const FAQSection = () => {
                 delay: 0.3,
                 duration: 0.5,
               }}
-              className="mt-8 rounded-2xl border border-white/[0.07] bg-white/[0.02] px-5 py-4 sm:px-6"
+              className="mt-8 rounded-2xl border border-white/[0.07] bg-white/2 px-5 py-4 sm:px-6"
             >
               <p className="text-xs text-white/45 sm:text-sm">
                 Still have questions?
 
                 <span className="ml-2 cursor-pointer text-[#00ff87] transition-colors hover:text-white hover:underline">
-                  Contact our support team →
+                 <a href="mailto:support@dollerxcapital.com?subject=General%20Inquiry&body=Hello%2C%0A%0AI%20have%20a%20query%20regarding%20your%20services.%0A%0AQuery%3A%2"> Contact our support team →</a>
                 </span>
               </p>
             </motion.div>

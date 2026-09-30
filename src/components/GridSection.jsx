@@ -197,7 +197,7 @@ const GridSection = () => {
 
               <div className="relative z-10 mt-5">
                 <Link
-                  to="/login"
+                  to="/platform"
                   className="group/btn inline-flex items-center gap-2 overflow-hidden rounded-full bg-gradient-to-r from-[#00ff87] via-[#00d2ff] to-[#2563eb] p-[1px] text-xs font-semibold text-white shadow-[0_0_18px_rgba(0,255,135,0.2)] transition-all duration-300 hover:scale-105 sm:text-sm"
                 >
                   <span className="flex items-center gap-2 rounded-full bg-[#05040b] px-5 py-2.5 transition-colors duration-300 group-hover/btn:bg-transparent">
@@ -312,7 +312,7 @@ const GridSection = () => {
                 </div>
 
                 <Link
-                  to="/login"
+                  to="/partnership"
                   className="mt-5 inline-flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-[#00d2ff] transition-colors hover:text-white sm:text-xs"
                 >
                   Partner With Us

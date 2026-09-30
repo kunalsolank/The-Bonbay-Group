@@ -240,7 +240,7 @@ const PartnershipBenefits = () => {
               </div>
 
               <a
-                href="#Requirements"
+                href="https://portal.dollrexcapital.com/register-new/"
                 className="group relative inline-flex w-fit shrink-0 items-center gap-5 overflow-hidden rounded-full border border-white/15 bg-white/[0.04] px-7 py-4 text-xs font-semibold uppercase tracking-[0.2em] text-white transition-all duration-500 hover:border-[#20a46a]/50 hover:bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] hover:text-black"
               >
                 <span className="relative z-10">Become a Partner</span>

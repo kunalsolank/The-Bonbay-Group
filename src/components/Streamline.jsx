@@ -92,37 +92,29 @@ const StreamlineCard = ({
       )}
 
       {/* Title */}
-      <h3 className="mt-0 max-w-[225px] text-[21px] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-[24px] md:text-[22px] lg:text-[24px]">
+      <h3 className="mt-0 max-w-56.25 text-[21px] font-semibold leading-[1.08] tracking-[-0.03em] text-white sm:text-[24px] md:text-[22px] lg:text-[24px]">
         {title}
       </h3>
 
       {/* Description */}
       {description && (
-        <p className="mt-2.5 max-w-[205px] text-[10px] leading-[1.45] text-white/60 sm:text-[11px]">
+        <p className="mt-2.5 max-w-51.25 text-[10px] leading-[1.45] text-white/60 sm:text-[11px]">
           {description}
         </p>
       )}
 
       {/* Action */}
-      {action && (
-        <span className="mt-auto inline-flex items-center gap-2 pt-4 text-[9px] font-semibold text-[#8ae7ff] sm:text-[10px]">
-          <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#00d2ff]/60 text-xs transition-all duration-300 group-hover:bg-[#00d2ff] group-hover:text-black">
-            &rarr;
-          </span>
-
-          {action}
-        </span>
-      )}
+    
     </>
   );
 
   return (
     <div className="group relative">
       {/* Outer Glow */}
-      <div className="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-r from-[#00d2ff]/25 via-[#00ff87]/30 to-[#2563eb]/25 opacity-0 blur-xl transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100" />
+      <div className="pointer-events-none absolute -inset-1 rounded-3xl bg-linear-to-r from-[#00d2ff]/25 via-[#00ff87]/30 to-[#2563eb]/25 opacity-0 blur-xl transition-all duration-500 ease-out group-hover:scale-105 group-hover:opacity-100" />
 
       {/* Top Glow */}
-      <div className="pointer-events-none absolute -top-8 left-1/2 h-24 w-44 -translate-x-1/2 rounded-full bg-gradient-to-t from-[#00ff87]/35 via-[#00d2ff]/25 to-transparent opacity-0 blur-2xl transition-all duration-500 ease-out group-hover:opacity-100" />
+      <div className="pointer-events-none absolute -top-8 left-1/2 h-24 w-44 -translate-x-1/2 rounded-full bg-linear-to-t from-[#00ff87]/35 via-[#00d2ff]/25 to-transparent opacity-0 blur-2xl transition-all duration-500 ease-out group-hover:opacity-100" />
 
       {/* ================= CARD ================= */}
       <article

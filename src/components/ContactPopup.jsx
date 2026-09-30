@@ -1,3 +1,4 @@
+
 import React, { useActionState, useEffect, useState } from "react";
 
 import Modal from "./Modal";
@@ -85,7 +86,6 @@ export default function ContactPopup({
     const previousOverflow = document.body.style.overflow;
 
     document.addEventListener("keydown", handleKeyDown);
-
     document.body.style.overflow = "hidden";
 
     return () => {
@@ -103,49 +103,32 @@ export default function ContactPopup({
       isOpen={isOpen}
       onClose={onClose}
       panelClassName="
-        max-h-[calc(100vh-2rem)]
-        max-w-4xl
-        rounded-2xl
         border
         border-black/10
         bg-white
-        p-0
         text-black
         shadow-[0_24px_80px_rgba(0,0,0,0.15)]
       "
-      closeButtonClassName="
-        text-black/40
-        hover:text-black
-      "
     >
-      <div className="px-6 py-7 sm:px-10 sm:py-8">
+       <div className="px-5 py-5 sm:px-7 sm:py-7 md:px-8 md:py-8">
         {state.success ? (
           <SuccessMessage onClose={onClose} />
         ) : (
           <>
-            <div className="mb-5">
-              <p className="text-xs font-medium tracking-[0.2em] text-emerald-500">
-                INQUIRY
-              </p>
-
-              <h2 className="mt-2 text-2xl font-medium text-black sm:text-3xl">
-                Start a conversation
-              </h2>
+            <div className="mb-3.5 sm:mb-4 pr-8 sm:pr-10">
+              <p className="text-[10px] font-medium tracking-[0.2em] text-emerald-500 uppercase">INQUIRY</p>
+              <h2 className="mt-1 text-xl font-medium text-black sm:text-2xl tracking-tight">Start a conversation</h2>
             </div>
-
-            <form
-              action={formAction}
-              className="space-y-5"
-            >
+            <form action={formAction} className="space-y-3 sm:space-y-4">
               <ReusableForm
                 fields={CONTACT_FIELDS}
-                values={state.values}
+                values={formValues}
                 errors={state.errors}
                 onChange={handleFieldChange}
               />
 
               {state.errors.form && (
-                <p className="text-sm text-red-500">
+                <p className="text-xs sm:text-sm text-red-500">
                   {state.errors.form}
                 </p>
               )}
@@ -153,20 +136,19 @@ export default function ContactPopup({
               <div
                 className="
                   flex
-                  flex-col-reverse
-                  items-start
-                  gap-4
-                  pt-1
+                  flex-col
+                  gap-3
+                  w-full
+                  pt-2
+                  sm:pt-3
                   sm:flex-row
                   sm:items-center
                   sm:justify-between
                 "
               >
-                <p className="text-xs leading-relaxed text-black/40">
-                  By submitting this form, you agree to be
-                  contacted by our team.
+                <p className="text-[10px] sm:text-[11px] leading-relaxed text-black/45 sm:max-w-[55%]">
+                  By submitting this form, you agree to be contacted by our team.
                 </p>
-
                 <SubmitButton />
               </div>
             </form>
