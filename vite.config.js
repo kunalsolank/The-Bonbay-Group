@@ -1,9 +1,10 @@
 import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react, {reactCompilerPreset} from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 import { imagetools } from "vite-imagetools";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
  import path from 'path'
+ import babel from "@rolldown/plugin-babel";
  import { fileURLToPath } from "url";
 // https://vite.dev/config/
 const __filename = fileURLToPath(import.meta.url);
@@ -16,6 +17,9 @@ export default defineConfig({
   },
   plugins: [
     react(),
+     babel({
+      presets: [reactCompilerPreset()],
+    }),
     tailwindcss(),
     imagetools(),
     ViteImageOptimizer({

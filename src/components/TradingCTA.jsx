@@ -5,14 +5,26 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Zap, Shield, Globe } from "lucide-react";
 import { ShineBorder } from "./ui/ShineBorder";
 
-const TradingCTA = () => {
+const TradingCTA = ({ theme = "default" }) => {
+  const isGreen = theme === "green";
+  const shineColors = isGreen
+    ? ["#00ff87", "#10b981", "#1fa864"]
+    : ["#00ff87", "#00d2ff", "#2563eb"];
+  const gradientText = isGreen
+    ? "from-[#00ff87] via-[#10b981] to-[#1fa864]"
+    : "from-[#00ff87] via-[#00d2ff] to-[#2563eb]";
+  const buttonGradient = isGreen
+    ? "from-[#00ff87] via-[#10b981] to-[#1fa864]"
+    : "from-[#00ff87] via-[#00d2ff] to-[#2563eb]";
+  const rightGlow = isGreen ? "bg-[#10b981]/10" : "bg-[#00d2ff]/10";
+
   return (
     <section className="relative overflow-hidden bg-[#05040b] py-10 sm:py-14 lg:py-16">
 
       {/* Background Glow */}
       <div className="pointer-events-none absolute -left-40 top-1/2 h-[350px] w-[350px] -translate-y-1/2 rounded-full bg-[#00ff87]/10 blur-[120px]" />
 
-      <div className="pointer-events-none absolute -right-40 bottom-0 h-[350px] w-[350px] rounded-full bg-[#00d2ff]/10 blur-[120px]" />
+      <div className={`pointer-events-none absolute -right-40 bottom-0 h-[350px] w-[350px] rounded-full ${rightGlow} blur-[120px]`} />
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
 
@@ -42,7 +54,7 @@ const TradingCTA = () => {
           <ShineBorder
             borderWidth={1.5}
             duration={12}
-            shineColor={["#00ff87", "#00d2ff", "#2563eb"]}
+            shineColor={shineColors}
           />
 
           <div className="grid lg:grid-cols-2">
@@ -149,7 +161,7 @@ const TradingCTA = () => {
                   Start Trading in Minutes
                   <br />
 
-                  <span className="bg-gradient-to-r from-[#00ff87] via-[#00d2ff] to-[#2563eb] bg-clip-text text-transparent">
+                  <span className={`bg-gradient-to-r ${gradientText} bg-clip-text text-transparent`}>
                     — Zero Delay
                   </span>
                 </h2>
@@ -175,7 +187,7 @@ const TradingCTA = () => {
                 <div className="mt-6">
                   <Link
                     to="https://portal.dollrexcapital.com/register-new/"
-                    className="
+                    className={`
                       group/btn
                       inline-flex
                       items-center
@@ -184,9 +196,7 @@ const TradingCTA = () => {
                       overflow-hidden
                       rounded-full
                       bg-gradient-to-r
-                      from-[#00ff87]
-                      via-[#00d2ff]
-                      to-[#2563eb]
+                      ${buttonGradient}
                       p-[1px]
                       text-sm
                       font-semibold
@@ -196,7 +206,7 @@ const TradingCTA = () => {
                       duration-300
                       hover:scale-[1.03]
                       hover:shadow-[0_0_35px_rgba(0,255,135,0.35)]
-                    "
+                    `}
                   >
                     <span
                       className="

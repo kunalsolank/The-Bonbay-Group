@@ -10,12 +10,12 @@ const DipositWithdrawal = () => {
     <div>
       <HeroSubSection
         eyebrow="Deposit & Withdrawals"
-        title="Quick & Easy Deposits and  "
+        title="Quick & Easy Deposits and Withdrawals"
         highlight="Withdrawals"
         description="Get instant access to your funds, whenever and wherever you need them—no stress, no delays."
         image={forexImage}
         buttonText="Start Trading"
-        buttonLink="/open-account"
+        buttonLink="https://portal.dollrexcapital.com/register-new/"
       />
       <HassleFreeDeposits />
       <SwiftWithdrawals />

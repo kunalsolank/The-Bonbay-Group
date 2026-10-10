@@ -1,457 +1,344 @@
+import React from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import HeroSubSection from "../components/subPagesComponents/HeroSubSection";
-import forexImage from "../assets/forexImg.webp";
-import { motion } from "framer-motion";
+import AboutSection from "../components/AboutSection";
 import MetaTraderPlatforms from "../components/subPagesComponents/MetaTraderPlatforms";
-import TradingSteps from "../components/subPagesComponents/TradingSteps";
+import FourStepSection from "../components/FourStepSection";
 import FAQSection from "../components/subPagesComponents/FAQSection";
 import TradingCTA from "../components/TradingCTA";
+import ScrollProgress from "../components/ui/ScrollProgress";
+import ScrollReveal from "../components/ui/ScrollReveal";
 import mt5 from "../assets/mt5.webp";
+import HeroVideo from "../assets/heroSection.mp4";
+
 const Platform = () => {
+  // Smooth scroll tracking for subtle ambient parallax lighting
+  const { scrollYProgress } = useScroll();
+  const glowY1 = useTransform(scrollYProgress, [0, 1], [0, 240]);
+  const glowY2 = useTransform(scrollYProgress, [0, 1], [0, -200]);
+
   const platforms = [
     {
       number: "01",
       title: "Forex",
       description:
         "Access major, minor, and exotic currency pairs with ultra-low spreads and high leverage.",
-      image: "https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-01.webp",
+      image:
+        "https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-01.webp",
+      link: "/markets/forex",
     },
     {
       number: "02",
       title: "Commodities",
       description:
-        "Speculate on gold, silver, oil, and other essentials — with competitive margins.",
-      image: 'https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-02.webp',
+        "Speculate on gold, silver, crude oil, and natural gas with competitive margins and zero hidden fees.",
+      image:
+        "https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-02.webp",
+      link: "/markets/commodities",
     },
     {
       number: "03",
       title: "Indices",
       description:
-        "Trade global indices like US30, FTSE, and DAX with minimal slippage and volatility protection.",
-      image: 'https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-03.webp',
+        "Trade global benchmark indices like US30, NAS100, and DAX40 with minimal slippage and deep liquidity.",
+      image:
+        "https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-03.webp",
+      link: "/markets/indices",
     },
     {
       number: "04",
       title: "Stocks",
       description:
-        "Explore CFD trading on top global shares without owning the underlying asset.",
-      image: 'https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-04.webp',
+        "Explore CFD trading on top global shares like Apple, Tesla, and Nvidia without owning the underlying asset.",
+      image:
+        "https://www.dollrexcapital.com/wp-content/themes/blankslate-child/assets/images/in-04.webp",
+      link: "/markets/stocks",
     },
   ];
-  const forexFAQs = [
+
+  const platformFAQs = [
     {
-      question: " What is MetaTrader 5 (MT5)? ",
+      question: "What is MetaTrader 5 (MT5)?",
       answer:
-        " MetaTrader 5 is a powerful trading platform used worldwide for trading forex, stocks, futures, and more. It offers fast execution and advanced tools to help traders make better decisions. ",
+        "MetaTrader 5 is a next-generation multi-asset trading platform engineered for speed, deep analytical precision, and institutional reliability. It supports trading in Forex, Stocks, Indices, and Commodities with cutting-edge tools and algorithmic capabilities.",
     },
     {
-      question: " How is MT5 different from MT4?  ",
+      question: "How is MT5 different from MT4?",
       answer:
-        " MT5 is the newer version of MT4, offering more asset types, improved charts, extra timeframes, and better tools. It supports multi-asset trading on one platform, unlike MT4. ",
+        "MT5 is the modernized successor to MT4, offering true multi-asset trading from a single account, 21 timeframes, 38 technical indicators, an integrated economic calendar, a 64-bit multi-threaded strategy tester, and advanced Depth of Market (DOM).",
     },
     {
-      question: " Can beginners use MT5?  ",
+      question: "Can beginners trade on MT5?",
       answer:
-        " Yes, MT5 is designed for all skill levels. Beginners can use its simple interface to start trading, while advanced traders can access sophisticated features and tools. ",
+        "Yes, MT5 is designed for traders of all experience levels. Beginners can trade with an intuitive user interface, quick one-click orders, and practice risk-free with free demo accounts before transitioning to live capital.",
     },
     {
-      question: " What devices can I use MT5 on? ",
+      question: "What devices and platforms does MT5 support?",
       answer:
-        " You can use MT5 on Windows and Mac computers, as well as on smartphones and tablets with iOS or Android. This lets you trade anytime, anywhere. ",
+        "You can run MT5 across Windows and macOS desktop applications, in any browser via MetaTrader 5 WebTrader, and on mobile through dedicated iOS and Android apps with full account synchronization.",
     },
     {
-      question: " What are Expert Advisors (EAs) on MT5? ",
+      question: "What are Expert Advisors (EAs) on MT5?",
       answer:
-        " Expert Advisors are automated trading robots that follow preset rules to trade for you. They allow you to trade 24/7 without needing to constantly watch the market. ",
+        "Expert Advisors are automated trading algorithms that execute trades based on programmed rules. MT5 allows you to build, test, and deploy EAs 24/7 with ultra-low latency execution via VPS integration.",
     },
     {
-      question: " Does MT5 support demo accounts? ",
+      question: "Does MT5 support free demo trading?",
       answer:
-        " Yes, MT5 offers free demo accounts so you can practice trading with virtual money. This helps you learn the platform and test strategies before risking real money.  ",
+        "Yes, Dollrex Capital Ltd. provides complimentary demo accounts with real-time price feeds, allowing you to master the platform, backtest indicators, and refine trading strategies without financial risk.",
     },
     {
-      question: " What is hedging in MT5? ",
+      question: "What is hedging mode in MT5?",
       answer:
-        " Hedging lets you open opposite trades on the same asset to reduce risk. It’s a useful feature to protect your investments in volatile markets. ",
+        "Hedging enables traders to hold opposing long and short positions simultaneously on the same financial instrument, allowing advanced risk mitigation and flexible tactical execution during high-volatility events.",
     },
     {
-      question: " Can I customize charts and indicators on MT5? ",
+      question: "Can I customize charts, indicators, and timeframes?",
       answer:
-        " Absolutely! MT5 provides many technical indicators and chart types. You can customize these to suit your trading style and analyze the markets more effectively. ",
+        "Absolutely. MT5 features completely customizable workspaces with 21 timeframes, detachable chart windows, unlimited indicator overlays, and access to thousands of community indicators via the MQL5 market.",
     },
     {
-      question: " Is MT5 safe and secure? ",
+      question: "Is MT5 secure and reliable?",
       answer:
-        " Yes, MT5 uses strong encryption to protect your data and transactions. It follows strict security standards to ensure a safe trading environment. ",
+        "Yes. MT5 implements 128-bit encryption, strict server authorization, and multi-factor security. Combined with Dollrex's segregated tier-1 accounts and negative balance protection, your funds and trading data remain secure.",
     },
     {
-      question: " How do I get started with MT5 on Dollrex Capital Ltd.? ",
+      question: "How do I get started with MT5 on Dollrex Capital Ltd.?",
       answer:
-        "  Sign up for a Dollrex Capital Ltd. account, download the MT5 app on your device, log in using your details, and you’re ready to start trading with all the platform’s features.  ",
+        "Simply create your account with Dollrex Capital Ltd., complete our swift digital KYC verification, download the MT5 app on your preferred device, and start trading with spreads from 0.0 pips.",
     },
   ];
+
+  const steps = [
+    {
+      number: 1,
+      title: "Sign Up with Dollrex",
+      description: "Create your free Dollrex Capital Ltd. trading account in just a few quick clicks.",
+      delay: 0,
+    },
+    {
+      number: 2,
+      title: "Download MT5",
+      description: "Install MetaTrader 5 on Windows, macOS, iOS, Android, or launch directly in your browser.",
+      delay: 200,
+    },
+    {
+      number: 3,
+      title: "Log in & Explore",
+      description: "Use your Dollrex credentials to explore 1000+ instruments, live charts, and institutional tools.",
+      delay: 400,
+    },
+    {
+      number: 4,
+      title: "Start Trading Smart",
+      description: "Pick your asset, place orders with sub-millisecond execution, and trade with raw spreads.",
+      delay: 600,
+    },
+  ];
+
   return (
-    <div>
+    <main
+      className="relative min-h-screen bg-[#05040b] text-white selection:bg-[#00ff87]/30 selection:text-white"
+      style={{ clipPath: "inset(0 0 0 0)" }}
+    >
+      {/* ── 1. Top Scroll Progress Indicator (Green Theme) ── */}
+      <ScrollProgress />
+
+      {/* ── 2. Ambient Parallax Background Glow Orbs (Pure Emerald/Green) ── */}
+      <div className="pointer-events-none fixed inset-0 overflow-hidden z-0">
+        <motion.div
+          style={{ y: glowY1 }}
+          className="absolute -top-40 -left-40 h-[550px] w-[550px] rounded-full bg-[#00ff87]/[0.08] blur-[150px]"
+        />
+        <motion.div
+          style={{ y: glowY2 }}
+          className="absolute top-1/2 -right-40 h-[550px] w-[550px] rounded-full bg-[#1fa864]/[0.07] blur-[150px]"
+        />
+        <div className="absolute bottom-20 left-1/3 h-[450px] w-[450px] rounded-full bg-[#00ff87]/[0.05] blur-[140px]" />
+      </div>
+
+      {/* ── 3. Hero Section ── */}
       <HeroSubSection
-        eyebrow="Platform"
+        eyebrow="Next-Gen Multi-Asset Platform"
         title="Accelerate Your Trading with "
-        highlight="MT5"
-        description="Join millions of traders using MT5 for faster trades, deeper insights, and reliable performance."
-        image={forexImage}
-        buttonText="Start Trading on MT5"
+        highlight="MT5 Platform"
+        description="Join millions of traders worldwide using MetaTrader 5 for ultra-fast execution, advanced analytics, and institutional reliability."
+        video={HeroVideo}
+        image="/images/hero-poster.jpg"
+        buttonText="Get Started"
         buttonLink="https://portal.dollrexcapital.com/register-new/"
       />
-      <section className="relative overflow-hidden bg-[#080908] py-24 sm:py-32">
-        {/* Background Accent */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.5 }}
-          whileInView={{ opacity: 0.15, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 1.5 }}
-          className="pointer-events-none absolute -right-40 top-1/2 h-125 w-125 -translate-y-1/2 rounded-full bg-[#e6c76a] blur-[160px]"
+
+      {/* ── 4. About MT5 Section (Green UI & Reveal) ── */}
+      <ScrollReveal direction="up" delay={0.05}>
+        <AboutSection
+          tag="Seamless Experience"
+          heading="What is MetaTrader 5 (MT5)?"
+          description="Experience a smarter and more seamless way to manage your financial journey. From your first deposit to your next market opportunity, everything is engineered around institutional speed, transparency, and multi-asset control."
+          stat1Value="1000+"
+          stat1Label="Tradable Instruments"
+          stat2Value="< 30ms"
+          stat2Label="Execution Latency"
+          buttonText="Get Started"
+          buttonLink="https://portal.dollrexcapital.com/register-new/"
+          image={mt5}
+          imageAlt="MetaTrader 5 platform"
         />
+      </ScrollReveal>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <div className="grid items-center gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
-            {/* Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
-              {/* Small Label */}
-              <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.1 }}
-                className="mb-6 flex items-center gap-4"
-              >
-                <span className="h-px w-10 bg-[#20a46a]" />
+      {/* ── 5. Platform Download Options (Desktop, Mobile, Web) ── */}
+      <ScrollReveal direction="up" delay={0.05}>
+        <MetaTraderPlatforms />
+      </ScrollReveal>
 
-                <span className="text-xs font-medium uppercase tracking-[0.3em] text-[#20a46a]">
-                  Seamless Experience
-                </span>
-              </motion.div>
+      {/* ── 6. Four Step Setup Guide (Brand Theme & Reveal) ── */}
+      <ScrollReveal direction="up" delay={0.05}>
+        <FourStepSection
+          heading="Start Trading on MT5 in 4 Simple Steps"
+          steps={steps}
+          buttonText="Get Started"
+          buttonLink="https://portal.dollrexcapital.com/register-new/"
+          theme="brand"
+        />
+      </ScrollReveal>
 
-              {/* Title */}
-              <h2 className="max-w-xl  text-4xl leading-[1.08] tracking-tight text-white sm:text-5xl lg:text-7xl">
-                What is MetaTrader 5
-                <br />
-                <span className="text-[#20a46a]">(MT5)?.</span>
-              </h2>
+      {/* ── 7. Tradable Markets Section (Vibrant Green UI) ── */}
+      <section className="relative z-10 overflow-hidden bg-[#05040b] py-20 sm:py-28 lg:py-32">
+        {/* Ambient Brand Green Glow */}
+        <div className="pointer-events-none absolute -left-40 top-1/4 h-[420px] w-[420px] rounded-full bg-[#00ff87]/12 blur-[150px]" />
+        <div className="pointer-events-none absolute -right-40 bottom-1/4 h-[420px] w-[420px] rounded-full bg-[#10b981]/12 blur-[150px]" />
 
-              {/* Description */}
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.25 }}
-                className="mt-7 max-w-lg text-base leading-8 text-white/55 sm:text-lg"
-              >
-                Experience a smarter and more seamless way to manage your
-                financial journey. From your first deposit to your next
-                opportunity, everything is designed around simplicity,
-                transparency, and speed.
-              </motion.p>
-
-              {/* Bottom Accent */}
-              <motion.div
-                initial={{ width: 0 }}
-                whileInView={{ width: 100 }}
-                viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
-                className="mt-10 h-px bg-[#20a46a]"
-              />
-            </motion.div>
-
-            {/* Image */}
-            <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, amount: 0.25 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="relative"
-            >
-              {/* Decorative Frame */}
-              <div className="absolute -right-3 -top-3 h-full w-full border border-[#e6c76a]/20 sm:-right-5 sm:-top-5" />
-
-              {/* Image Wrapper */}
-              <motion.div
-                whileHover={{ scale: 1.015 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-                className="group relative overflow-hidden"
-              >
-                <img
-                  src={mt5}
-                  alt="Premium financial experience"
-                  className="h-105 w-full object-cover transition-transform duration-1000 group-hover:scale-105 sm:h-125 lg:h-150"
-                />
-
-                {/* Image Overlay */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/50 via-transparent to-transparent" />
-
-                {/* Image Corner Detail */}
-                <div className="absolute bottom-6 left-6 flex items-center gap-3">
-                  <span className="h-2 w-2 rounded-full bg-[#20a46a]" />
-
-                  <span className="text-xs uppercase tracking-[0.25em] text-white/80">
-                    Premium Financial Solutions
-                  </span>
-                </div>
-              </motion.div>
-
-              {/* Floating Number */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.7, delay: 0.6 }}
-                className="absolute -bottom-8 -left-4 hidden sm:block"
-              >
-                <span className="font-serif text-7xl font-light text-white/5">
-                  01
-                </span>
-              </motion.div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-      <MetaTraderPlatforms />
-      <TradingSteps
-        eyebrow="Platform Trading"
-        heading="How to Get Started with  "
-        highlight=" MetaTrader 5 (MT5)"
-        points={[
-          {
-            number: "01",
-            title: "Sign Up with Dollrex Capital Ltd.",
-            description:
-              "Create your free Dollrex Capital Ltd. trading account in just a few clicks.",
-            icon: "◈",
-          },
-          {
-            number: "02",
-            title: "Download MT5",
-            description:
-              "Get the MetaTrader 5 app on your phone, tablet, or computer—easy and quick!",
-            icon: "↗",
-          },
-          {
-            number: "03",
-            title: "Log In & Explore",
-            description:
-              "Use your Dollrex Capital Ltd. details to log in and check out the tools, charts, and features.",
-            icon: "⌁",
-          },
-          {
-            number: "04",
-            title: "Start Trading Smart",
-            description:
-              "Pick your asset, place your trade, and enjoy fast and smooth trading with MT5.",
-            icon: "✓",
-          },
-        ]}
-      />
-      <section className="relative overflow-hidden bg-[#080908] py-24 sm:py-32">
-        {/* Background Glow */}
-        <div className="pointer-events-none absolute -left-40 top-1/4 h-112.5 w-112.5 rounded-full bg-[#d9b85c]/10 blur-[160px]" />
-
-        <div className="relative mx-auto  px-6 lg:px-10">
-          {/* Section Header */}
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          {/* Centered Section Header */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8 }}
-            className="mb-16 max-w-3xl"
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mb-14 max-w-3xl text-center sm:mb-16"
           >
-            <div className="mb-6 flex items-center gap-4">
-              <span className="h-px w-10 bg-[#20a46a]" />
-
-              <span className="text-xs uppercase tracking-[0.3em] text-[#20a46a]">
-                Trading Platforms
+            {/* Pill Eyebrow Badge (Green Theme) */}
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#00ff87]/35 bg-[#00ff87]/10 px-4 py-1.5 backdrop-blur-md shadow-[0_0_20px_rgba(0,255,135,0.18)]">
+              <span className="h-1.5 w-1.5 animate-ping rounded-full bg-[#00ff87]" />
+              <span className="text-[11px] font-semibold uppercase tracking-[0.24em] text-[#00ff87]">
+                Multi-Asset Liquidity
               </span>
             </div>
 
-            <h2 className="font-serif text-5xl font-light leading-[1.05] text-white sm:text-6xl lg:text-7xl">
-             Trade What Moves the Market
+            {/* Title (Pure Vibrant Green Gradient) */}
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-white leading-[1.08]">
+              Trade What Moves{" "}
+              <br className="hidden sm:inline" />
+              <span className="bg-gradient-to-r from-[#00ff87] via-[#10b981] to-[#1fa864] bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,255,135,0.35)]">
+                The Global Market
+              </span>
             </h2>
 
+            {/* Description */}
+            <p className="mx-auto mt-5 max-w-2xl text-base sm:text-lg text-white/65 leading-relaxed font-normal">
+              Access deep institutional liquidity and ultra-fast execution across global asset classes, engineered natively for MetaTrader 5.
+            </p>
           </motion.div>
 
-          {/* Platform Items */}
-          {/* Platform Items */}
-          <div className="grid gap-6 md:grid-cols-4">
+          {/* Platform Cards Grid with Staggered Scroll Reveal & Green Accents */}
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {platforms.map((platform, index) => (
               <motion.div
                 key={platform.number}
-                initial={{ opacity: 0, y: 50 }}
+                initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  duration: 0.8,
-                  delay: index * 0.15,
+                  duration: 0.7,
+                  delay: index * 0.12,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group relative h-130 overflow-hidden border border-white/10 bg-[#10110f]"
+                className="group relative h-[480px] sm:h-[500px] overflow-hidden rounded-2xl border border-white/10 bg-[#07090e]/80 backdrop-blur-xl transition-all duration-500 hover:-translate-y-2 hover:border-[#00ff87]/60 hover:shadow-[0_20px_50px_rgba(0,255,135,0.22)]"
               >
-                {/* IMAGE */}
+                {/* Luminous Green Top Hover Line */}
+                <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#00ff87] to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100 z-30" />
+
+                {/* Card Background Image */}
                 <img
                   src={platform.image}
                   alt={platform.title}
-                  className="
-          absolute inset-0
-          h-full w-full
-          object-cover
-          transition-transform
-          duration-1000
-          ease-out
-          group-hover:scale-110
-        "
+                  loading="lazy"
+                  className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
                 />
 
-                {/* DARK GRADIENT */}
-                <div
-                  className="
-          absolute inset-0
-          bg-linear-to-t
-          from-black
-          via-black/20
-          to-transparent
-        "
-                />
+                {/* Dark Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#05040b] via-[#05040b]/60 to-transparent" />
 
-                {/* ========================================
-          DEFAULT TITLE
-      ======================================== */}
-                <div
-                  className="
-          absolute
-          bottom-0
-          left-0
-          z-20
-          w-full
-          p-7
-          transition-all
-          duration-500
-          group-hover:-translate-y-4
-          group-hover:opacity-0
-          sm:p-8
-        "
-                >
-                  <div className="mb-3 flex items-center gap-3">
-                    <span className="h-px w-8 bg-[#20a46a]" />
-
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-white/60">
+                {/* Default Title State */}
+                <div className="absolute bottom-0 left-0 z-20 w-full p-6 sm:p-7 transition-all duration-500 group-hover:-translate-y-4 group-hover:opacity-0">
+                  <div className="mb-2.5 flex items-center gap-2.5">
+                    <span className="h-px w-6 bg-[#00ff87]" />
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.25em] text-[#00ff87]">
                       {platform.number}
                     </span>
                   </div>
 
-                  <h3 className="font-serif text-3xl font-light text-white sm:text-4xl">
+                  <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
                     {platform.title}
                   </h3>
                 </div>
 
-                {/* ========================================
-          HOVER DESCRIPTION
-      ======================================== */}
-                <div
-                  className="
-          absolute
-          bottom-0
-          left-0
-          z-10
-          w-full
-
-          translate-y-full
-
-          bg-black/95
-
-          p-7
-
-          transition-transform
-          duration-700
-          ease-[cubic-bezier(0.22,1,0.36,1)]
-
-          group-hover:translate-y-0
-
-          sm:p-8
-        "
-                >
-                  {/* Number */}
-                  <div className="mb-5">
-                    <span className="font-serif text-5xl font-light text-[#d9b85c]/30">
+                {/* Interactive Hover Drawer (Green Accent) */}
+                <div className="absolute bottom-0 left-0 z-20 w-full translate-y-full border-t border-[#00ff87]/25 bg-[#07090e]/95 p-6 sm:p-7 backdrop-blur-md transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-y-0">
+                  {/* Watermark Number & Eyebrow */}
+                  <div className="mb-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <span className="h-px w-6 bg-[#00ff87]" />
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-[#00ff87]">
+                        MetaTrader 5
+                      </span>
+                    </div>
+                    <span className="font-mono text-3xl font-semibold bg-gradient-to-b from-[#00ff87]/40 to-transparent bg-clip-text text-transparent select-none">
                       {platform.number}
-                    </span>
-                  </div>
-
-                  {/* Label */}
-                  <div className="mb-5 flex items-center gap-3">
-                    <span className="h-px w-10 bg-[#20a46a]" />
-
-                    <span className="text-[10px] uppercase tracking-[0.3em] text-[#20a46a]">
-                      MetaTrader 5
                     </span>
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-serif text-3xl font-light text-white sm:text-4xl">
+                  <h3 className="text-2xl sm:text-3xl font-medium tracking-tight text-white">
                     {platform.title}
                   </h3>
 
-                  {/* DESCRIPTION */}
-                  <p className="mt-5 text-sm leading-7 text-white/60 sm:text-base sm:leading-8">
+                  {/* Description */}
+                  <p className="mt-3 text-sm leading-relaxed text-white/70">
                     {platform.description}
                   </p>
 
-                  {/* Bottom Accent */}
-                  <div className="mt-7 flex items-center gap-3">
-                    <span className="h-px w-12 bg-[#20a46a]" />
-
-                    <a
-                      href="#"
-                      className="text-[9px] uppercase tracking-[0.3em] text-white/30"
-                    >
-                      Trade Anywhere
-                    </a>
+                  {/* Link / CTA */}
+                  <div className="mt-5 flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-[#00ff87] transition-all">
+                    <span>Trade Anywhere</span>
+                    <span className="text-sm transition-transform duration-300 group-hover:translate-x-1">→</span>
                   </div>
                 </div>
-
-                {/* PREMIUM HOVER BORDER */}
-                <div
-                  className="
-          pointer-events-none
-          absolute
-          inset-0
-          z-30
-          border
-          border-transparent
-          transition-colors
-          duration-500
-          group-hover:border-[#d9b85c]/50
-        "
-                />
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
+      {/* ── 8. Platform FAQ Accordion (Sticky Header, No Extra Overflow) ── */}
       <FAQSection
-        faqs={forexFAQs}
-        eyebrow=" FAQ"
+        faqs={platformFAQs}
+        eyebrow="Platform FAQ"
         heading="Frequently Asked"
         highlightedHeading=" Questions"
-        description="Everything you need to know about Forex trading, currency pairs, leverage, and our platform."
+        description="Everything you need to know about MetaTrader 5, multi-asset trading, setup, and Dollrex tools."
         bottomText="Can't find what you're looking for?"
         bottomLinkText="Talk to our team →"
         onBottomLinkClick={() => {
-          console.log("Contact clicked");
+          window.location.href = "/contact";
         }}
       />
-      <TradingCTA />
-    </div>
+
+      {/* ── 9. Final Trading CTA Banner (Green Theme) ── */}
+      <ScrollReveal direction="up" delay={0.05}>
+        <TradingCTA theme="green" />
+      </ScrollReveal>
+    </main>
   );
 };
 

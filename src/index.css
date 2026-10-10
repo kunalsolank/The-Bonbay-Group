@@ -3,7 +3,6 @@
 html {
   font-family: Delight, Arial, sans-serif;
 }
-@import "tailwindcss";
 
 @font-face {
   font-family: "Pavelt";
@@ -24,6 +23,52 @@ html {
 :root {
   background-color: #05040b;
 }
+
+@layer utilities {
+  .bg-gradient-gradient {
+    background-image: linear-gradient(125deg, #1fa864, #258d87 50%, #3959a6);
+  }
+
+  .section-circle {
+    filter: blur(120px);
+    background-color: #8F6C21;
+    border-radius: 100%;
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    position: absolute;
+    inset: 180px 0 auto;
+  }
+
+  .feature-tool-icon-00 { z-index: 4; position: absolute; inset: 50% 0% 0% 50%; transform: translate(-50%, -30%); }
+  .feature-tool-icon-01 { z-index: 3; position: absolute; inset: 50% 0% 0% 50%; transform: translate(-100%, -127%); }
+  .feature-tool-icon-02 { z-index: 5; position: absolute; inset: 50% 0% 50% 50%; transform: translate(-145%, -10%); }
+  .feature-tool-icon-03 { position: absolute; inset: 50% 0% 0% 50%; transform: rotate(-51deg) translate(114%, -6%); }
+  .feature-tool-icon-04 { position: absolute; inset: 50% 0% 0% 50%; transform: translate(84%, 40%); }
+}
+
+@keyframes stepItemEffect {
+  0% { transform: scale(1); opacity: 0.8; }
+  100% { transform: scale(1.25, 1.65); opacity: 0; }
+}
+@keyframes stepFadeInTop {
+  0% { transform: translateY(-40%); opacity: 0.5; }
+  100% { transform: translateY(0%); opacity: 1; }
+}
+@keyframes stepFadeInLeft {
+  0% { transform: translateX(-50%); opacity: 0.5; }
+  100% { transform: translateX(0%); opacity: 1; }
+}
+@keyframes stepFadeInLeftPage {
+  0% { transform: translateX(-10%); opacity: 0; }
+  100% { transform: translateX(0%); opacity: 1; }
+}
+.animate-stepFadeInTop { animation: stepFadeInTop 0.5s ease-in-out forwards; }
+.animate-stepFadeInLeft { animation: stepFadeInLeft 0.5s ease-in-out forwards; }
+.animate-stepFadeInLeftPage { animation: stepFadeInLeftPage 0.5s ease-in-out forwards; }
+
 
 .contact-phone-input {
   width: 100%;

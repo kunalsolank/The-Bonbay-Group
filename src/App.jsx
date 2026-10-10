@@ -1,11 +1,13 @@
 import { useEffect, Suspense, lazy } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useParams, Navigate } from "react-router-dom";
 import Lenis from "lenis";
 import "./App.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./components/ScrollToTop";
 import HomeSkeleton from "./components/ui/HomeSkeleton";
+import MarketPageTemplate from "./pages/MarketPageTemplate";
+import { marketDataMap } from "./data/marketsData";
 
 // Route-level pages loaded lazily with Suspense fallback
 const Home = lazy(() => import("./pages/Home"));
@@ -21,6 +23,17 @@ const DipositWithdrawal = lazy(() => import("./pages/DipositWithdrawal"));
 const Platform = lazy(() => import("./pages/Platform"));
 const EconomicCalendar = lazy(() => import("./pages/EconomicCalendar"));
 const Partnership = lazy(() => import("./pages/Partnership"));
+
+/**
+ * DynamicMarketPage — resolves /market/:slug to the matching market data.
+ * Unknown slugs redirect to the home page.
+ */
+function DynamicMarketPage() {
+  const { slug } = useParams();
+  const data = marketDataMap[slug];
+  if (!data) return <Navigate to="/" replace />;
+  return <MarketPageTemplate {...data} />;
+}
 
 function App() {
   useEffect(() => {
@@ -60,11 +73,14 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<AboutUs />} />
+              {/* Named market routes (backward compatible) */}
               <Route path="/forex" element={<Forex />} />
               <Route path="/commodities" element={<Commodities />} />
               <Route path="/indices" element={<Indices />} />
               <Route path="/stocks" element={<Stocks />} />
               <Route path="/metals" element={<Metals />} />
+              {/* Dynamic market route: /market/:slug → resolves via marketDataMap */}
+              <Route path="/market/:slug" element={<DynamicMarketPage />} />
               <Route path="/account-compare" element={<AccountCompare />} />
               <Route
                 path="/deposit-withdrawals"
