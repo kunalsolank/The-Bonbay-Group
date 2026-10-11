@@ -20,7 +20,7 @@ export function FeatureCard({ feat }) {
       {/* Top gradient line */}
       <div
         className="pointer-events-none absolute inset-x-6 top-0 h-px opacity-70 transition-opacity duration-500 group-hover:opacity-100"
-        style={{ background: `linear-gradient(90deg, transparent, ${feat.color}, transparent)` }}
+        style={{ background: `linear-gradient(90deg, transparent, ${feat?.color}, transparent)` }}
       />
 
       {/* Hover glow */}

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Link } from "react-router-dom";
 
@@ -13,6 +13,30 @@ const HeroSubSection = ({
   buttonLink = "#",
 }) => {
   const sectionRef = useRef(null);
+  const videoRef = useRef(null);
+
+  /* ---------------------------------------------------
+     ENSURE CONTINUOUS SEAMLESS PLAYBACK
+  --------------------------------------------------- */
+  useEffect(() => {
+    const videoElement = videoRef.current;
+    if (!videoElement) return;
+
+    // Browser autoplay policy optimization
+    videoElement.muted = true;
+    
+    const handleCanPlay = () => {
+      videoElement.play().catch((error) => {
+        console.warn("Autoplay was prevented:", error);
+      });
+    };
+
+    videoElement.addEventListener("canplay", handleCanPlay);
+
+    return () => {
+      videoElement.removeEventListener("canplay", handleCanPlay);
+    };
+  }, [video]);
 
   /* ---------------------------------------------------
      SCROLL PARALLAX
@@ -41,10 +65,11 @@ const HeroSubSection = ({
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 1.3, ease: [0.25, 0.1, 0.25, 1] }}
           style={{ y: mediaY, scale: mediaScale }}
-          className="absolute inset-0 will-change-transform transform-gpu"
+          className="absolute inset-0 will-change-transform transform-gpu pointer-events-none"
         >
           {video ? (
             <video
+              ref={videoRef}
               className="absolute inset-0 w-full h-full object-cover brightness-125 contrast-105"
               src={video}
               poster={image}
@@ -66,8 +91,8 @@ const HeroSubSection = ({
         </motion.div>
       )}
 
-      {/* Light overlay only, so the video stays clear */}
-      <div className="absolute inset-0 bg-black/20" />
+      {/* Ambient background overlay for unified aesthetic */}
+      <div className="absolute inset-0 bg-black/20 pointer-events-none" />
 
       {/* =====================================================
           CONTENT — centered
@@ -110,7 +135,9 @@ const HeroSubSection = ({
               {highlight && (
                 <>
                   <br />
-                  <span className="text-[#00ff87] drop-shadow-[0_0_25px_rgba(0,255,135,0.45)]">{highlight}</span>
+                  <span className="text-[#00ff87] drop-shadow-[0_0_25px_rgba(0,255,135,0.45)]">
+                    {highlight}
+                  </span>
                 </>
               )}
             </motion.h1>

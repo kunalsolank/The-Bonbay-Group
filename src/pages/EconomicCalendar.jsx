@@ -157,38 +157,6 @@ const EconomicCalendar = () => {
         </div>
 
         <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <FeatureCardGrid
-            columns="grid-cols-1 md:grid-cols-3"
-            items={[
-              {
-                title: "Trading Guides for Beginners",
-                desc: "Step-by-step guides to help you learn the basics of trading, from placing your first trade to understanding the markets.",
-                icon: "📘",
-                color: "#20a46a",
-                stat: "01",
-                statLabel: "Learn",
-                link: "/markets",
-              },
-              {
-                title: "Market News & Updates",
-                desc: "Stay updated with the latest financial news, expert analysis, and key events that could impact your trades.",
-                icon: "📰",
-                color: "#d9b85c",
-                stat: "02",
-                statLabel: "Stay Informed",
-                link: "/accounts",
-              },
-              {
-                title: "Video Tutorials & Webinars",
-                desc: "Watch easy-to-follow videos and attend live sessions to sharpen your trading skills at your own pace.",
-                icon: "🎥",
-                color: "#3959a6",
-                stat: "03",
-                statLabel: "Watch",
-                link: "/platform",
-              },
-            ]}
-          />
           <ThreeLinkCards
             eyebrow="Discover More"
             heading="Everything you need to trade"
@@ -219,7 +187,6 @@ const EconomicCalendar = () => {
           />
         </div>
 
-        <TradingCTA />
       </section>
     </>
   );

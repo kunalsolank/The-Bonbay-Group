@@ -1,5 +1,6 @@
 import React, { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
+import { Card, CardContent } from "../ui/card";
 
 /**
  * Exactly 4 badges, one per corner, so they stay far from the title.
@@ -129,19 +130,68 @@ const ParaxEffectHeroSubSection = ({
         </h2>
 
         {/* Description: accepts a string or an array of paragraphs */}
-        <div className="mx-auto mt-6 max-w-2xl space-y-4 sm:mt-8 sm:space-y-5">
-          {(Array.isArray(description)
-            ? description
-            : String(description).split(/\n\s*\n/)
-          ).map((para, i) => (
-            <p
-              key={i}
-              className="text-base leading-7 text-white/55 sm:text-xl sm:leading-8"
-            >
-              {para.trim()}
-            </p>
-          ))}
+
+
+        <div className="mx-auto mt-8 max-w-7xl">
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {(Array.isArray(description)
+              ? description
+              : String(description).split(/\n\s*\n/)
+            ).map((para, i) => {
+              const metrics = [
+                { value: "01", label: "STAY INFORMED" },
+                { value: "02", label: "TRACK EVENTS" },
+                { value: "03", label: "PLAN AHEAD" },
+              ];
+
+              return (
+                <Card
+                  key={i}
+                  className="group relative overflow-hidden rounded-2xl border border-white/[0.10] bg-[#0b0b12]/90 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#00ff87]/30"
+                >
+                  <CardContent className="relative p-6">
+                    {/* Top row */}
+                    <div className="mb-6 flex items-center justify-between gap-3">
+                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#00ff87]/20 bg-[#00ff87]/[0.07] text-[#00ff87]">
+                        <span className="text-lg font-semibold">
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+
+                      <div className="text-right">
+                        <div className="text-2xl font-bold text-[#00ff87]">
+                          {metrics[i]?.value}
+                        </div>
+                        <div className="mt-1 text-[10px] font-semibold tracking-widest text-white/40">
+                          {metrics[i]?.label}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Title */}
+                    <h3 className="mb-2 text-lg font-semibold text-white">
+                      {[
+                        "Stay Ahead of Market News",
+                        "Understand Market Impact",
+                        "Make Informed Decisions",
+                      ][i]}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-sm leading-6 text-white/55">
+                      {para.trim()}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
         </div>
+
+
+
+
+
 
         {buttonText && (
           <a
