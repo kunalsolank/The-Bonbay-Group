@@ -145,13 +145,14 @@ const TradingCTA = ({ theme = "default" }) => {
                 <h2
                   className="
                     max-w-xl
-                    text-3xl
+                    text-2xl
                     font-normal
-                    leading-[1.08]
+                    leading-[1.12]
                     tracking-tight
                     text-white
 
                     sm:text-4xl
+                    sm:leading-[1.08]
 
                     lg:text-[42px]
 

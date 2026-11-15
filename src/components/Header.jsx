@@ -447,7 +447,7 @@ export default function Header() {
               </Link>
 
               <Link
-                to="/contact"
+                to="/contactus"
                 className="block px-3 py-3 text-white hover:text-[#20a46a] transition-colors"
                 onClick={closeMenu}
               >

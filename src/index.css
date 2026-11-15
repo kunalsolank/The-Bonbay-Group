@@ -4,6 +4,10 @@ html {
   font-family: Delight, Arial, sans-serif;
 }
 
+.contact-page :is(input, select, textarea, button) {
+  font-family: inherit;
+}
+
 @font-face {
   font-family: "Pavelt";
   src: url("/Font/Pavelt.ttf") format("truetype");
@@ -105,6 +109,19 @@ html {
   border-right: 1px solid rgb(0 0 0 / 0.1) !important;
   background: transparent !important;
   color: #000 !important;
+}
+
+.contact-phone-input-dark {
+  border-bottom-color: rgb(255 255 255 / 0.15);
+}
+
+.contact-phone-field-dark {
+  color: #fff !important;
+}
+
+.contact-phone-selector-dark {
+  border-right-color: rgb(255 255 255 / 0.15) !important;
+  color: #fff !important;
 }
 
 .react-international-phone-country-selector-dropdown {

@@ -1,12 +1,14 @@
-import React, { useRef } from "react";
+import  { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import ThreeLinkCards from "../components/subPagesComponents/ThreeLinkCards";
 import ParaxEffectHeroSubSection from "../components/subPagesComponents/ParaxEffectHeroSubSection";
 import marketsImage from "../assets/Computer.avif";
 import accountsImage from "../assets/Computer.avif";
 import platformImage from "../assets/Computer.avif";
-import TradingCTA from "../components/TradingCTA";
-import FeatureCardGrid from "#/components/subPagesComponents/FeatureCardGrid.jsx";
+import heroImage from '../assets/EconomyCalander.webp'
+import  TradingGuides from "../assets/Economic_Calander/TradingGuides.png"
+import  MarketNews  from "../assets/Economic_Calander/MarketNews.png"
+import  VideoTutorials from "../assets/Economic_Calander/VideoTutorials.png"
 
 const EconomicCalendar = () => {
   const calendarRef = useRef(null);
@@ -31,6 +33,7 @@ const EconomicCalendar = () => {
     <>
       {/* Parallax hero — must stay OUTSIDE any overflow-hidden parent */}
       <ParaxEffectHeroSubSection
+        image={heroImage}
         eyebrow="Economic Calendar"
         title="Know the News"
         highlight="That Moves Money"
@@ -55,6 +58,7 @@ const EconomicCalendar = () => {
               exitX: -70,
               exitY: 30,
             },
+            
             {
               label: "GDP Growth",
               icon: "🌍",
@@ -92,7 +96,7 @@ const EconomicCalendar = () => {
         }
       />
 
-      <section className="elative overflow-hidden bg-[#080908] pt-0 pb-24 ">
+      <section className="relative overflow-hidden bg-[#080908] pt-0 pb-0">
 
         <div className="relative mx-auto max-w-6xl px-6 text-center lg:px-10">
 
@@ -156,8 +160,8 @@ const EconomicCalendar = () => {
           </div>
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-          <ThreeLinkCards
+
+        <ThreeLinkCards
             eyebrow="Discover More"
             heading="Everything you need to trade"
             subheading="Explore our markets, trading tools and account solutions built for a seamless trading experience."
@@ -166,26 +170,27 @@ const EconomicCalendar = () => {
                 title: "Trading Guides for Beginners",
                 description:
                   "Step-by-step guides to help you learn the basics of trading, from placing your first trade to understanding the markets.",
-                image: marketsImage,
+                image: TradingGuides,
                 link: "/markets",
               },
               {
                 title: "Market News & Updates",
                 description:
                   "Stay updated with the latest financial news, expert analysis, and key events that could impact your trades.",
-                image: accountsImage,
+                image: MarketNews,
                 link: "/accounts",
               },
               {
                 title: "Video Tutorials & Webinars",
                 description:
                   "Watch easy-to-follow videos and attend live sessions to sharpen your trading skills at your own pace.",
-                image: platformImage,
+                image: VideoTutorials,
                 link: "/platform",
               },
+              
             ]}
           />
-        </div>
+
 
       </section>
     </>

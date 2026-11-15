@@ -1,5 +1,5 @@
-import  { useCallback, useMemo } from "react";
-import { motion, useReducedMotion, } from "framer-motion";
+import { useCallback, useMemo } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { Badge } from "./ui/badge";
 import { StatCard } from "./ui/TradingCard";
 import { cn } from "../lib/utils";
@@ -52,7 +52,7 @@ export default function GlobalTrading({
 
   return (
     <section className="relative overflow-hidden bg-[#05040b] py-10 sm:py-14 lg:py-16 flex items-center min-h-145 lg:min-h-160">
-      {/* ── Classical Animated Ambient Shadow & Lighting Layer ───────────── */}
+      {/* Ambient shadow & lighting layer */}
       <AmbientShadowBackground />
 
       <div className="relative mx-auto max-w-310 px-4 sm:px-6 lg:px-8 w-full z-10">
@@ -62,11 +62,8 @@ export default function GlobalTrading({
             reverse && "lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1"
           )}
         >
-          {/* ─────────────────────────────────────────────────────────────
-              LEFT COLUMN: Header, Interactive Narrative, Highlights, CTA
-             ───────────────────────────────────────────────────────────── */}
-          <div className="lg:col-span-7 flex flex-col justify-center">
-            {/* Live radar badge with shadcn Badge */}
+          {/* LEFT COLUMN */}
+          <div className="lg:col-span-7 flex flex-col justify-center min-w-0">
             {badge && (
               <motion.div {...reveal(0)} className="mb-3">
                 <Badge
@@ -82,7 +79,6 @@ export default function GlobalTrading({
               </motion.div>
             )}
 
-            {/* Headline */}
             <motion.h2
               {...reveal(0.05)}
               className="text-2xl sm:text-3xl lg:text-[2.25rem] font-medium leading-[1.2] tracking-tight text-white"
@@ -96,22 +92,32 @@ export default function GlobalTrading({
               aria-hidden="true"
             />
 
-            {/* Interactive Narrative / Description Tabs (State Colocated) */}
+            {/* Narrative tabs */}
             <NarrativeTabs descriptions={descriptions} reveal={reveal} />
 
-            {/* Highlights / Stats Grid (Data-driven using StatCard) */}
+            {/* Stats: horizontal swipeable row on mobile, grid on sm+ */}
             {stats.length > 0 && (
               <motion.div
                 {...reveal(0.16)}
-                className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-3 mt-5"
+                className={cn(
+                  "mt-5 flex flex-row flex-nowrap gap-2.5 overflow-x-auto snap-x snap-mandatory",
+                  "-mx-4 px-4 pb-1",
+                  "[scrollbar-width:none] [&::-webkit-scrollbar]:hidden",
+                  "sm:mx-0 sm:px-0 sm:pb-0 sm:grid sm:grid-cols-4 sm:gap-3 sm:overflow-visible"
+                )}
               >
                 {stats.map((s, i) => (
-                  <StatCard key={`${s.value}-${i}`} value={s.value} label={s.label} />
+                  <div
+                    key={`${s.value}-${i}`}
+                    className="shrink-0 w-36 snap-start sm:w-auto"
+                  >
+                    <StatCard value={s.value} label={s.label} />
+                  </div>
                 ))}
               </motion.div>
             )}
 
-            {/* CTA Action Row */}
+            {/* CTA */}
             {hasCta && (
               <motion.div
                 {...reveal(0.2)}
@@ -154,13 +160,11 @@ export default function GlobalTrading({
             )}
           </div>
 
-          {/* ─────────────────────────────────────────────────────────────
-              RIGHT COLUMN: Modern Trading Terminal Glass Cockpit
-             ───────────────────────────────────────────────────────────── */}
-          <div className="lg:col-span-5 flex flex-col justify-center">
+          {/* RIGHT COLUMN */}
+          <div className="lg:col-span-5 flex flex-col justify-center min-w-0">
             {image && (
               <TerminalCockpit
-                title='DOLLREX // EXECUTION ENGINE'
+                title="DOLLREX // EXECUTION ENGINE"
                 image={image}
                 imageAlt={imageAlt}
                 reveal={reveal}

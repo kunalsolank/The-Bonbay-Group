@@ -52,23 +52,23 @@ export default function AboutSection({
 
               {/* Stats */}
               {(stat1Value || stat2Value) && (
-                <div className="flex flex-col sm:flex-row gap-6 sm:gap-10 justify-center md:justify-start">
+                <div className="grid grid-cols-2 gap-4 sm:flex sm:gap-10 justify-center md:justify-start">
                   {stat1Value && (
-                    <div className="flex flex-col items-center md:items-start">
-                      <h3 className="font-mono text-3xl sm:text-4xl mb-1 font-semibold bg-gradient-to-r from-[#00ff87] to-[#10b981] bg-clip-text text-transparent">
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                      <h3 className="font-mono text-2xl sm:text-4xl mb-1 font-semibold bg-gradient-to-r from-[#00ff87] to-[#10b981] bg-clip-text text-transparent">
                         {stat1Value}
                       </h3>
-                      <p className="text-white/70 text-sm sm:text-base">
+                      <p className="text-white/70 text-xs sm:text-base">
                         {stat1Label}
                       </p>
                     </div>
                   )}
                   {stat2Value && (
-                    <div className="flex flex-col items-center md:items-start">
-                      <h3 className="font-mono text-3xl sm:text-4xl mb-1 font-semibold bg-gradient-to-r from-[#00ff87] to-[#10b981] bg-clip-text text-transparent">
+                    <div className="flex flex-col items-center md:items-start text-center md:text-left">
+                      <h3 className="font-mono text-2xl sm:text-4xl mb-1 font-semibold bg-gradient-to-r from-[#00ff87] to-[#10b981] bg-clip-text text-transparent">
                         {stat2Value}
                       </h3>
-                      <p className="text-white/70 text-sm sm:text-base">
+                      <p className="text-white/70 text-xs sm:text-base">
                         {stat2Label}
                       </p>
                     </div>

@@ -1,6 +1,6 @@
-import React, { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Card, CardContent } from "../ui/card";
+import React, { useRef, useEffect } from "react";
+import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import DescriptionBlock from "../ui/DescriptionBlock";
 
 /**
  * Exactly 4 badges, one per corner, so they stay far from the title.
@@ -11,7 +11,7 @@ const DEFAULT_BADGES = [
     label: "FOMC Rate Decision",
     icon: "🏦",
     tone: "green",
-    className: "top-[5%] left-[3%] sm:top-[8%] sm:left-[4%]",
+    className: "top-[110px] left-[3%] sm:top-[125px] sm:left-[4%]",
     rotate: -10,
     exitX: -70,
     exitY: -30,
@@ -20,7 +20,7 @@ const DEFAULT_BADGES = [
     label: "Non-Farm Payrolls",
     icon: "💼",
     tone: "gold",
-    className: "top-[5%] right-[3%] sm:top-[8%] sm:right-[4%]",
+    className: "top-[110px] right-[3%] sm:top-[125px] sm:right-[4%]",
     rotate: 10,
     exitX: 70,
     exitY: -20,
@@ -29,7 +29,7 @@ const DEFAULT_BADGES = [
     label: "CPI Inflation",
     icon: "📈",
     tone: "dark",
-    className: "bottom-[5%] left-[3%] sm:bottom-[8%] sm:left-[4%]",
+    className: "bottom-[8%] left-[3%] sm:bottom-[10%] sm:left-[4%]",
     rotate: 8,
     exitX: -70,
     exitY: 30,
@@ -38,7 +38,7 @@ const DEFAULT_BADGES = [
     label: "GDP Growth",
     icon: "🌍",
     tone: "green",
-    className: "bottom-[5%] right-[3%] sm:bottom-[8%] sm:right-[4%]",
+    className: "bottom-[14%] right-[3%] sm:bottom-[16%] sm:right-[4%]",
     rotate: -8,
     exitX: 70,
     exitY: 20,
@@ -47,6 +47,7 @@ const DEFAULT_BADGES = [
 
 const TONES = {
   green: "bg-[#20a46a] text-white shadow-[0_12px_30px_-8px_rgba(32,164,106,0.5)]",
+  gradient: "bg-gradient-to-r from-[#1fa864] via-[#258d87] to-[#3959a6] text-white shadow-[0_12px_30px_-8px_rgba(31,168,100,0.5)] border border-white/10",
   gold: "bg-[#d9b85c] text-[#080908] shadow-[0_12px_30px_-8px_rgba(217,184,92,0.45)]",
   dark: "bg-[#111211] text-white border border-white/10 shadow-[0_12px_30px_-8px_rgba(0,0,0,0.8)]",
 };
@@ -83,28 +84,193 @@ const Badge = ({ badge, progress }) => {
   );
 };
 
+/**
+ * Seamless looping video.
+ * The native `loop` attribute causes a visible jump/stutter when the video
+ * restarts. Instead we stack two copies of the same video and, just before the
+ * current one ends, fade the second one in from 0:00. The viewer never sees
+ * a restart.
+ */
+const CROSSFADE_SECONDS = 0.8;
+
+const SeamlessLoopVideo = ({ src, poster, className = "" }) => {
+  const videoARef = useRef(null);
+  const videoBRef = useRef(null);
+
+  useEffect(() => {
+    const a = videoARef.current;
+    const b = videoBRef.current;
+    if (!a || !b) return;
+
+    const videos = [a, b];
+    let active = 0; // index of the video currently on top and playing
+    let fading = false;
+    let rafId = 0;
+    let timeoutId = 0;
+
+    videos.forEach((v) => {
+      v.muted = true;
+      v.loop = false;
+    });
+
+    a.style.transition = "none";
+    b.style.transition = "none";
+    a.style.opacity = "1";
+    a.style.zIndex = "2";
+    b.style.opacity = "0";
+    b.style.zIndex = "1";
+
+    const safePlay = (v) => {
+      const p = v.play();
+      if (p && p.catch) p.catch(() => { });
+    };
+
+    safePlay(a);
+
+    const tick = () => {
+      const cur = videos[active];
+      const next = videos[1 - active];
+      const d = cur.duration;
+
+      if (
+        !fading &&
+        isFinite(d) &&
+        d > CROSSFADE_SECONDS * 3 &&
+        d - cur.currentTime <= CROSSFADE_SECONDS + 0.05
+      ) {
+        fading = true;
+
+        // Put the next video on top, invisible, at the start
+        next.currentTime = 0;
+        next.style.transition = "none";
+        next.style.opacity = "0";
+        next.style.zIndex = "3";
+        safePlay(next);
+
+        // Force reflow, then fade it in over the ending video
+        void next.offsetWidth;
+        next.style.transition = `opacity ${CROSSFADE_SECONDS}s linear`;
+        next.style.opacity = "1";
+
+        timeoutId = window.setTimeout(() => {
+          cur.pause();
+          cur.currentTime = 0;
+          cur.style.transition = "none";
+          cur.style.opacity = "0";
+          cur.style.zIndex = "1";
+          next.style.zIndex = "2";
+          active = 1 - active;
+          fading = false;
+        }, CROSSFADE_SECONDS * 1000 + 60);
+      }
+
+      rafId = requestAnimationFrame(tick);
+    };
+
+    rafId = requestAnimationFrame(tick);
+
+    // If the tab was hidden and the browser paused playback, resume it
+    const onVisibility = () => {
+      if (!document.hidden) safePlay(videos[active]);
+    };
+    document.addEventListener("visibilitychange", onVisibility);
+
+    // Fallback: if a clip is too short to crossfade, use a normal loop
+    const onMeta = () => {
+      if (isFinite(a.duration) && a.duration <= CROSSFADE_SECONDS * 3) {
+        a.loop = true;
+      }
+    };
+    a.addEventListener("loadedmetadata", onMeta);
+
+    return () => {
+      cancelAnimationFrame(rafId);
+      clearTimeout(timeoutId);
+      document.removeEventListener("visibilitychange", onVisibility);
+      a.removeEventListener("loadedmetadata", onMeta);
+    };
+  }, [src]);
+
+  const common = {
+    src,
+    muted: true,
+    playsInline: true,
+    preload: "auto",
+    "aria-hidden": true,
+    className: `absolute inset-0 h-full w-full object-cover ${className}`,
+  };
+
+  return (
+    <>
+      <video ref={videoARef} poster={poster} autoPlay {...common} />
+      <video ref={videoBRef} {...common} />
+    </>
+  );
+};
+
 const ParaxEffectHeroSubSection = ({
   eyebrow = "Economic Calendar",
   title = "Know the News",
-  highlight = "That Moves Money",
+  highlight = "",
   description = "Track the jobs, prices and interest-rate events that move the markets — and be ready before everyone else.",
+  descriptionLayout = "cards", // "cards" | "tabs" (used only when description has 2+ items)
+  descriptionTitles, // optional string[] for card / tab titles
+  descriptionMetrics, // optional {value, label}[] for cards
+  video, // optional background video URL (mp4/webm)
+  image, // optional background image (also used as video poster)
   buttonText = "View Calendar",
   buttonLink = "#calendar",
+  buttonClassName,
+  highlightClassName,
   onButtonClick,
   badges = DEFAULT_BADGES,
 }) => {
   const sectionRef = useRef(null);
-
+  const ref = React.useRef(null)
+  const isInView = useInView(ref,{once:true})
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end start"],
   });
+
+  const mediaY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
+  const mediaScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
+
+  const hasMedia = Boolean(video || image);
 
   return (
     <section
       ref={sectionRef}
       className="relative flex min-h-[100svh] items-center justify-center overflow-hidden bg-[#080908] px-4 py-32 sm:px-6 sm:py-36"
     >
+      {/* Background media: video first, else image, else nothing */}
+      {hasMedia && (
+        <>
+          <motion.div
+            style={{ y: mediaY, scale: mediaScale }}
+            className="pointer-events-none absolute inset-0 transform-gpu will-change-transform"
+          >
+            {video ? (
+              <SeamlessLoopVideo src={video} poster={image} />
+            ) : (
+              <div className="relative h-full w-full">
+                <img
+                  src={image}
+                  alt=""
+                  aria-hidden="true"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
+                />
+                {/* Dark overlay to soften the background clutter */}
+                <div className="absolute inset-0 bg-black/60 backdrop-blur-[2px]" />
+              </div>
+            )}
+          </motion.div>
+
+          {/* Overlay keeps the text readable over the media */}
+          <div className="pointer-events-none absolute inset-0 bg-black/50" />
+        </>
+      )}
+
       {/* Background Glow */}
       <div className="pointer-events-none absolute left-1/2 top-1/2 h-[300px] w-[300px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#d9b85c]/10 blur-[120px] sm:h-[500px] sm:w-[500px] sm:blur-[180px]" />
 
@@ -114,93 +280,67 @@ const ParaxEffectHeroSubSection = ({
       ))}
 
       {/* Centered content */}
-      <div className="relative z-20 mx-auto max-w-4xl text-center">
-        <div className="mb-5 flex items-center justify-center gap-3 sm:mb-6 sm:gap-4">
-          <span className="h-px w-8 bg-[#20a46a] sm:w-12" />
-          <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-[#20a46a] sm:text-xs sm:tracking-[0.3em]">
-            {eyebrow}
-          </span>
-          <span className="h-px w-8 bg-[#20a46a] sm:w-12" />
-        </div>
-
-        <h2 className="font-serif text-4xl font-light leading-[1.1] tracking-tight text-white min-[400px]:text-5xl sm:text-6xl lg:text-8xl">
+      <div className="relative z-20 mx-auto flex w-full max-w-[90vw] flex-col items-center gap-6 text-center sm:max-w-[940px] sm:gap-8">
+        {/* Subheading pill */}
+        {eyebrow && (
+          <div className="mx-auto flex max-w-[95vw] flex-wrap items-center justify-center gap-2 rounded-full border border-white/10 px-4 py-2 sm:max-w-max sm:gap-3 sm:px-5 sm:py-3">
+            <motion.img
+              src="https://cdn.prod.website-files.com/6880e261cef3bfa6896ed9d3/68821a3faca8d79d3b4e7810_star.svg"
+              alt=""
+              width={20}
+              height={20}
+              className="flex-shrink-0"
+              loading="lazy"
+              animate={{ opacity: [1, 0.25, 1], scale: [1, 0.8, 1] }}
+              transition={{
+                duration: 1.4,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }}
+            />
+            <span className="text-center text-xs text-white sm:text-sm">
+              {eyebrow}
+            </span>
+          </div>
+        )}
+     <motion.h2
+      ref={ref}
+      initial={{ filter: 'blur(20px)', opacity: 0 }}
+      animate={isInView ? { filter: 'blur(0px)', opacity: 1 } : {}}
+      transition={{ duration: 1.2 }}
+    >
+        {/* Headline */}
+        <h2 className="mx-auto max-w-[95vw] text-3xl font-normal leading-snug text-white sm:max-w-[769px] sm:text-4xl sm:leading-tight lg:text-6xl lg:leading-[1.2]">
           {title}
-          <br />
-          <span className="text-[#20a46a]">{highlight}</span>
+          {highlight && (
+            <>
+              <br />
+              <span className={highlightClassName || "text-[#20a46a]"}>{highlight}</span>
+            </>
+          )}
         </h2>
 
-        {/* Description: accepts a string or an array of paragraphs */}
-
-
-        <div className="mx-auto mt-8 max-w-7xl">
-          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-            {(Array.isArray(description)
-              ? description
-              : String(description).split(/\n\s*\n/)
-            ).map((para, i) => {
-              const metrics = [
-                { value: "01", label: "STAY INFORMED" },
-                { value: "02", label: "TRACK EVENTS" },
-                { value: "03", label: "PLAN AHEAD" },
-              ];
-
-              return (
-                <Card
-                  key={i}
-                  className="group relative overflow-hidden rounded-2xl border border-white/[0.10] bg-[#0b0b12]/90 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-[#00ff87]/30"
-                >
-                  <CardContent className="relative p-6">
-                    {/* Top row */}
-                    <div className="mb-6 flex items-center justify-between gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-xl border border-[#00ff87]/20 bg-[#00ff87]/[0.07] text-[#00ff87]">
-                        <span className="text-lg font-semibold">
-                          {String(i + 1).padStart(2, "0")}
-                        </span>
-                      </div>
-
-                      <div className="text-right">
-                        <div className="text-2xl font-bold text-[#00ff87]">
-                          {metrics[i]?.value}
-                        </div>
-                        <div className="mt-1 text-[10px] font-semibold tracking-widest text-white/40">
-                          {metrics[i]?.label}
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Title */}
-                    <h3 className="mb-2 text-lg font-semibold text-white">
-                      {[
-                        "Stay Ahead of Market News",
-                        "Understand Market Impact",
-                        "Make Informed Decisions",
-                      ][i]}
-                    </h3>
-
-                    {/* Description */}
-                    <p className="text-sm leading-6 text-white/55">
-                      {para.trim()}
-                    </p>
-                  </CardContent>
-                </Card>
-              );
-            })}
-          </div>
+        {/* Description: 1 item -> <p>, 2+ items -> cards (or tabs) */}
+        <div className="w-full">
+          <DescriptionBlock
+            description={description}
+            layout={descriptionLayout}
+            {...(descriptionTitles ? { titles: descriptionTitles } : {})}
+            {...(descriptionMetrics ? { metrics: descriptionMetrics } : {})}
+          />
         </div>
-
-
-
-
-
-
+        </motion.h2>
+        {/* CTA Button */}
         {buttonText && (
-          <a
-            href={buttonLink}
-            onClick={onButtonClick}
-            className="mt-8 inline-block rounded-full bg-[#20a46a] px-6 py-3 text-xs font-semibold uppercase tracking-[0.15em] text-white transition hover:bg-[#1b8c5a] sm:mt-10 sm:px-8 sm:py-3.5 sm:text-sm"
-          >
-            {buttonText}
-          </a>
+          <div className="flex justify-center">
+            <a
+              href={buttonLink}
+              onClick={onButtonClick}
+              className={buttonClassName || "inline-block rounded-3xl bg-[#20a46a] px-5 py-2.5 font-medium uppercase tracking-wide text-white transition hover:bg-[#1b8c5a] sm:px-6 sm:py-3"}
+            >
+              {buttonText}
+            </a>
+          </div>
         )}
       </div>
     </section>

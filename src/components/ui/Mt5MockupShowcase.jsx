@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { motion, useReducedMotion } from "framer-motion";
-import plImg from "../../assets/pl-img.webp";
+import plImg from "../../assets/Product.png";
 import RippleOrbitBackground from "./RippleOrbitBackground";
 import PlatformBadge, { MetaTraderIcon } from "./PlatformBadge";
 
@@ -45,11 +45,10 @@ const Mt5MockupShowcase = memo(function Mt5MockupShowcase() {
           <img
             src={plImg}
             alt="MetaTrader 5 Desktop and Mobile Trading Platform"
-            width={720}
-            height={580}
+          
             loading="lazy"
             decoding="async"
-            className="w-full h-auto max-h-[520px] sm:max-h-[580px] object-contain drop-shadow-[0_24px_55px_rgba(0,0,0,0.55)]"
+            className="  object-contain "
           />
         </motion.div>
       </motion.div>

@@ -12,7 +12,23 @@
 // Shared helpers
 // ─────────────────────────────────────────────
 const REGISTER_LINK = "https://portal.dollrexcapital.com/register-new/";
-
+import Spreads from "../assets/Forex_Images/Spreads.png"
+import Leverage from "../assets/Forex_Images/Leverage.png"
+import FastExecution from "../assets/Forex_Images/FastExecution.png"
+import MutiAssetMetals from "../assets/Metals_Images/multiassetmetals.png"
+import Trade from "../assets/Metals_Images/Trade.png"
+import Tightmetalspreads from "../assets/Metals_Images/Tightmetalspreads.png"
+import Realtimeprices from "../assets/Metals_Images/realtimeprices.png"
+import Diversecommodityaccess from "../assets/Commodities_Images/Diversecommodityaccess.png"
+import energymarkets from "../assets/Commodities_Images/energymarkets.png"
+import MT5Pricefeeds from "../assets/Commodities_Images/MT5Pricefeeds.png"
+import Instantaccesstoglobalbrands from "../assets/Stocks_Images/Stocks_Images/Instantaccesstoglobalbrands.png"
+import Lowcosttrading from "../assets/Stocks_Images/Stocks_Images/Lowcosttrading.png"
+import realtimestockprices from "../assets/Stocks_Images/Stocks_Images/realtimestockprices.png"
+import Instantmarketexposure from "../assets/Indices_Images/Instantmarketexposure.png"
+import indexprices from "../assets/Indices_Images/indexprices.png"
+import Lowerriskthansinglestock from "../assets/Indices_Images/Lowerriskthansinglestock.png"
+import { image } from "framer-motion/client";
 const defaultSteps = [
   {
     number: 1,
@@ -44,25 +60,25 @@ const defaultCompanyLogos = [
 
 const defaultCompliance = [
   {
-    icon: "/compliance-icon1.svg",
+    icon: "Forex_Icons/SVG/Uptime.svg",
     title: "99.9% Uptime",
     description: "Enterprise-grade trading infrastructure.",
     bgColor: "bg-[#011b20]",
   },
   {
-    icon: "/compliance-icon2.svg",
+    icon: "Forex_Icons/SVG/24_5 Support.svg",
     title: "24/5 Support",
     description: "Dedicated support via chat, email & WhatsApp.",
     bgColor: "bg-[#200401]",
   },
   {
-    icon: "/compliance-icon3.svg",
+    icon: "Forex_Icons/SVG/RiskControl.svg",
     title: "Risk Controls",
     description: "Built-in SL/TP, margin alerts & balance protection.",
     bgColor: "bg-[#012003]",
   },
   {
-    icon: "/compliance-icon4.svg",
+    icon: "Forex_Icons/SVG/Compliance.svg",
     title: "Compliance",
     description: "Fully regulated, transparent, and client-first.",
     bgColor: "bg-[#201601]",
@@ -123,34 +139,34 @@ export const forexData = {
     "Get the conditions, support, and platform performance serious traders need to succeed in global currency markets..",
   builtFeatures: [
     {
-      icon: "/icon12.svg",
+      icon: "/Forex_Icons/SVG/Spreads.svg",
       title: "Spreads",
       description: "Tight, transparent spreads from as low as 0.0 pips",
-      image: "/image12.webp",
+      image: Spreads,
     },
     {
-      icon: "/icon2.svg",
+      icon: "/Forex_Icons/SVG/Leverage.svg",
       title: "Leverage",
       description: "Flexible leverage options up to 1:1000 available on all pairs",
-      tools: ["/image2-1.svg", "/image2-2.svg", "/image2-3.svg", "/image2-4.svg", "/image2-5.svg"],
+      image: Leverage,
     },
     {
-      icon: "/icon3.svg",
+      icon: "/Forex_Icons/SVG/Execution.svg",
       title: "Execution",
       description: "Fast and reliable order execution with minimal slippage.",
       noImage: true,
     },
     {
-      icon: "/icon4.svg",
+      icon: "/Forex_Icons/SVG/Support.svg",
       title: "Support",
       description: "Forex-savvy assistance available 24/5 via WhatsApp, live chat & email.",
       noImage: true,
     },
     {
-      icon: "/icon5.svg",
+      icon: "/Forex_Icons/SVG/FastExecution.svg",
       title: "Fast Execution",
       description: "Market orders filled in milliseconds with no requotes.",
-      image: "/image3.webp",
+      image: FastExecution
     },
   ],
   builtCompliance: defaultCompliance,
@@ -341,34 +357,34 @@ export const metalsData = {
     "Hedge your portfolio, preserve wealth, or seize volatility — trade metals with tight spreads and dependable infrastructure.",
   builtFeatures: [
     {
-      icon: "/icon12.svg",
+      icon: "/Metals_Icons/SVG/Tightmetalspreads.svg",
       title: "Tight Metal Spreads",
       description: "Trade XAUUSD (Gold) from as low as 0.1 pips — keeping your trading costs minimal.",
-      image: "/image12.webp",
+      image: Tightmetalspreads,
     },
     {
-      icon: "/icon2.svg",
+      icon: "/Metals_Icons/SVG/multiassetmetals.svg",
       title: "Multi-Asset Metals",
       description: "Access Gold, Silver, Platinum, and Palladium — all from one account.",
-      tools: ["/image2-1.svg", "/image2-2.svg", "/image2-3.svg", "/image2-4.svg", "/image2-5.svg"],
+      image: Trade,
     },
     {
-      icon: "/icon3.svg",
+      icon: "/Metals_Icons/SVG/portfoliohedging.svg",
       title: "Portfolio Hedging",
       description: "Use precious metals to hedge against currency risk and market downturns.",
       noImage: true,
     },
     {
-      icon: "/icon4.svg",
+      icon: "/Metals_Icons/SVG/highleverage.svg",
       title: "High Leverage",
       description: "Up to 1:500 leverage on metals — amplify your exposure with controlled risk.",
       noImage: true,
     },
     {
-      icon: "/icon5.svg",
+      icon: "/Metals_Icons/SVG/Realtimeprices.svg",
       title: "Real-Time Prices",
       description: "Live metal prices streamed directly to your MT5 with zero latency.",
-      image: "/image3.webp",
+      image:  Realtimeprices,
     },
   ],
   builtCompliance: defaultCompliance,
@@ -521,34 +537,34 @@ export const commoditiesData = {
     "Whether you trade crude oil, natural gas, or agricultural products — DollreX gives you the edge with reliable pricing and execution.",
   builtFeatures: [
     {
-      icon: "/icon12.svg",
+      icon: "/Commodities_Icons/SVG/EnergyMarkets.svg",
       title: "Energy Markets",
       description: "Trade Crude Oil (WTI & Brent) and Natural Gas with real-time pricing and tight spreads.",
-      image: "/image12.webp",
+      image: energymarkets,
     },
     {
-      icon: "/icon2.svg",
+      icon: "/Commodities_Icons/SVG/DiverseCommodityaccess.svg",
       title: "Diverse Commodity Access",
       description: "Oil, gas, wheat, coffee, cotton, cocoa — access 20+ commodities from one platform.",
-      tools: ["/image2-1.svg", "/image2-2.svg", "/image2-3.svg", "/image2-4.svg", "/image2-5.svg"],
+      image:Diversecommodityaccess
     },
     {
-      icon: "/icon3.svg",
+      icon: "/Commodities_Icons/SVG/DiversificationTools.svg",
       title: "Diversification Tools",
       description: "Use commodities to diversify your portfolio and hedge against inflation.",
       noImage: true,
     },
     {
-      icon: "/icon4.svg",
+      icon: "/Commodities_Icons/SVG/Leveragedtrading.svg",
       title: "Leveraged Trading",
       description: "Up to 1:200 leverage on major commodity CFDs — amplify your market exposure.",
       noImage: true,
     },
     {
-      icon: "/icon5.svg",
+      icon: "/Commodities_Icons/SVG/MT5pricefeeds.svg",
       title: "MT5 Price Feeds",
       description: "Real-time commodity prices direct to MT5 with zero delay.",
-      image: "/image3.webp",
+      image: MT5Pricefeeds,
     },
   ],
   builtCompliance: defaultCompliance,
@@ -725,34 +741,34 @@ export const indicesData = {
     "ndices trading gives you a broader view of market performance without focusing on individual stocks. Here’s why it’s worth considering.",
   builtFeatures: [
     {
-      icon: "/icon12.svg",
+      icon: "/Indices_Icons/SVG/Instantmarketexposure.svg",
       title: "Instant Market Exposure",
       description: "Gain access to entire markets like tech or industrials through one index..",
-      image: "/image12.webp",
+      image: Instantmarketexposure,
     },
     {
-      icon: "/icon2.svg",
+      icon: "/Indices_Icons/SVG/Lowerriskthansinglestocks.svg",
       title: "Lower Risk than Single Stocks",
       description: "Reduce risk by trading a basket of stocks rather than just one..",
-      tools: ["/image2-1.svg", "/image2-2.svg", "/image2-3.svg", "/image2-4.svg", "/image2-5.svg"],
+      image:Lowerriskthansinglestock
     },
     {
-      icon: "/icon3.svg",
+      icon: "/Indices_Icons/SVG/Globaleconomicsinsight.svg",
       title: "Global Economic Insight",
       description: "Indices reflect economic health, offering strong trading signals.",
       noImage: true,
     },
     {
-      icon: "/icon4.svg",
+      icon: "/Indices_Icons/SVG/FlexibilitywithCFDS.svg",
       title: "Flexibility with CFDs",
       description: "Trade both rising and falling markets with contract-based trading.",
       noImage: true,
     },
     {
-      icon: "/icon5.svg",
+      icon: "/Indices_Icons/SVG/Liveindexprices.svg",
       title: "Live Index Prices",
       description: "Real-time index pricing streamed directly to your MT5 account.",
-      image: "/image3.webp",
+      image: indexprices,
     },
   ],
   builtCompliance: defaultCompliance,
@@ -927,34 +943,34 @@ export const stocksData = {
     "Trade shares of Apple, Tesla, Google, Amazon, and 250+ top companies as CFDs — without a brokerage account or stock ownership.",
   builtFeatures: [
     {
-      icon: "/icon12.svg",
+      icon: "/Stocks_Icons/Stocks_Icons/SVG/Instantaccesstoglobalbrands.svg",
       title: "Instant Access to Global Brands",
       description: "Trade CFDs on Apple, Microsoft, Tesla, and other market movers without owning actual shares.",
-      image: "/image12.webp",
+      image: Instantaccesstoglobalbrands,
     },
     {
-      icon: "/icon2.svg",
+      icon: "/Stocks_Icons/Stocks_Icons/SVG/Lowcosttrading.svg",
       title: "Low-Cost Trading",
       description: "Enjoy tight spreads and no commission fees — what you see is what you pay.",
-      tools: ["/image2-1.svg", "/image2-2.svg", "/image2-3.svg", "/image2-4.svg", "/image2-5.svg"],
+      image:Lowcosttrading
     },
     {
-      icon: "/icon3.svg",
+      icon: "/Stocks_Icons/Stocks_Icons/SVG/Profitinanymarketdirection.svg",
       title: "Profit in Any Market Direction",
       description: "Go long or short depending on how the market moves — capture opportunities both ways.",
       noImage: true,
     },
     {
-      icon: "/icon4.svg",
+      icon: "/Stocks_Icons/Stocks_Icons/SVG/FlexibleLeverage.svg",
       title: "Flexible Leverage Up to 1:50",
       description: "Get more exposure while keeping risk under control with our advanced risk management tools.",
       noImage: true,
     },
     {
-      icon: "/icon5.svg",
+      icon: "/Stocks_Icons/Stocks_Icons/SVG/Realtimestockprices.svg",
       title: "Real-Time Stock Prices",
       description: "Live stock prices directly inside MT5 — no delay, no data lag.",
-      image: "/image3.webp",
+      image: realtimestockprices,
     },
   ],
   builtCompliance: defaultCompliance,

@@ -188,21 +188,21 @@ export default function BuiltForex({
 
           {/* Second feature with tools */}
           <Reveal className={cardClass}>
-            <div className="feature-card flex flex-col h-full">
+            <div className="feature-card flex flex-col h-full overflow-hidden">
               <CardText {...features[1]} />
-              <div className="flex justify-center items-center relative h-48 sm:h-56 flex-wrap gap-2 p-4 mt-auto">
-                {features[1]?.tools?.map((toolIcon, index) => (
+
+              {features[1]?.image && (
+                <div className="mt-auto flex justify-center items-end px-4 pb-0 sm:h-56">
                   <img
-                    key={index}
-                    src={toolIcon}
+                    src={features[1].image}
                     alt=""
-                    width={60}
-                    height={60}
-                    className={`w-auto feature-tool-icon-0${index}`}
+                    width={305}
+                    height={237}
+                    className="w-full h-auto max-h-full object-contain"
                     loading="lazy"
                   />
-                ))}
-              </div>
+                </div>
+              )}
             </div>
           </Reveal>
 

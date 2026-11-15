@@ -11,6 +11,7 @@ import TabSection from "../components/TabSection";
 import IntegrationSection from "../components/IntegrationSection";
 import ScrollProgress from "../components/ui/ScrollProgress";
 import ScrollReveal from "../components/ui/ScrollReveal";
+import {tabs} from '../data/HomeData'
 
 export default function Home() {
   return (
@@ -28,7 +29,7 @@ export default function Home() {
       {/* <MarketExperience /> */}
 
       <ScrollReveal direction="up" delay={0.05}>
-        <TabSection />
+        <TabSection tabs={tabs} heading="[Core Markets ]" title="Trade Global Financial Markets with Unrivaled Conditions" />
       </ScrollReveal>
 
       <ScrollReveal direction="up" delay={0.05}>
